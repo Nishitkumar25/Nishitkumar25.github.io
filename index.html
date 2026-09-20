@@ -313,46 +313,46 @@
           </dl>
         </article>
 
-        <!-- ============ PROJECT 02 · SPEECH THERAPY (RESEARCH) ============ -->
+        <!-- ============ PROJECT 02 · Hospital wesbite ============ -->
         <article class="case case-research" id="project-speech-therapy">
           <header class="case-head">
             <p class="case-id mono">project_02 <span class="research-accent"></span></p>
             <div class="case-badges mono" aria-label="Categories">
-              <span>ai</span><span>speech-processing</span><span>research</span>
+              <span>full-stack</span><span>healthcare</span><span>web development</span>
             </div>
-            <h3 class="case-title">Adaptive Emotion-Aware Speech Therapy Framework for Dysarthria</h3>
+            <h3 class="case-title">Hospital Appointment & surgery Information Platform</h3>
             <p class="case-subtitle">
-              An AI-based research framework for adaptive speech therapy. It analyses a speaker's speech characteristics,
-              emotional state, accent variation, and severity level then generates therapy exercises that adapt to the
-              speaker rather than applying one fixed routine.
+              A full-stack healthcare paltform designed to simplify clinic discovery, appointment booking and access to surgery related information. The platform provides with a centralized interface for finding clinics, booking 
+              appointements, viewing surgery details, downloading PDF summaries and accessing locations through embedded maps.
             </p>
           </header>
 
           <dl class="case-block">
             <div class="case-field">
               <dt class="mono">problem</dt>
-              <dd>Dysarthria affects speech clarity and intelligibility, usually with individualized impairments. Conventional therapy routines are generic and rarely account for the speaker's current emotional state, accent, or severity reducing both engagement and effectiveness.</dd>
+              <dd>Patients often need to navigate multiple sources to find clinic information, schedule appointments and understand avaiable surgical procedures. scattered information and disconnectede booking processes can make healthcare discovery inconvenient and time consuming.</dd>
             </div>
             <div class="case-field">
               <dt class="mono">approach</dt>
-              <dd>A speech-driven loop: analyze the patient's input, estimate characteristics and severity, detect emotion and accent influence, then adapt therapy content and difficulty. Feedback closes the loop and re-adjusts the next session.</dd>
+              <dd>A centralized patient facing platforms that brings clinic discovery, appointment booking, surgery information, downloadable summaries and location services into a single workflow. The 
+              system organize healthcare information into an accessible interface while connecting the frontend with backend services and a MongoDB database.</dd>
             </div>
           </dl>
 
           <div class="case-arch" aria-label="Speech therapy pipeline">
-            <p class="panel-label mono">research_pipeline speech_therapy_loop</p>
+            <p class="panel-label mono">platform pipeline</p>
             <ol class="pipeline pipeline-research" aria-hidden="true">
-              <li class="pipe-step">Input Speech</li>
+              <li class="pipe-step">Clinic search</li>
               <li class="pipe-arrow">→</li>
-              <li class="pipe-step">Preprocessing</li>
+              <li class="pipe-step">Appointment Booking</li>
               <li class="pipe-arrow">→</li>
-              <li class="pipe-step">Feature Extraction</li>
+              <li class="pipe-step">Surgery Information</li>
               <li class="pipe-arrow">→</li>
-              <li class="pipe-step">Speech / Emotion Analysis</li>
+              <li class="pipe-step">PDF Summary</li>
               <li class="pipe-arrow">→</li>
-              <li class="pipe-step pipe-hot">Dysarthria Assessment</li>
+              <li class="pipe-step pipe-hot">maps</li>
               <li class="pipe-arrow">→</li>
-              <li class="pipe-step">Adaptive Therapy</li>
+              <li class="pipe-step">Blogs</li>
               <li class="pipe-arrow">→</li>
               <li class="pipe-step">Feedback</li>
             </ol>
@@ -361,11 +361,11 @@
           <dl class="case-block">
             <div class="case-field">
               <dt class="mono">technology</dt>
-              <dd>Python · speech processing · machine learning / deep learning · emotion recognition · accent-aware feature design</dd>
+              <dd>Angular · Node.js · MongoDB · HTML · CSS · JavaScript</dd>
             </div>
             <div class="case-field">
               <dt class="mono">contribution</dt>
-              <dd>Designed the end-to-end framework and its adaptive therapy decision layer mapping speech and emotion analysis outputs into severity-appropriate, personalized exercise plans. Transitioned a conventional speech-therapy idea into a measured, data-driven research system.</dd>
+              <dd>Developed the platform during my internship, implementing differnt page  section in the site, contributing towards the Front-end part and understanding the basic knowledge over backend.</dd>
             </div>
           </dl>
         </article>
@@ -373,7 +373,7 @@
         <!-- ============ PROJECTS 03-05 · COMPACT CASE CARDS ============ -->
         <div class="case-grid">
 
-          <article class="case case-compact" id="project-hospital">
+          <!-- <article class="case case-compact" id="project-hospital">
             <p class="case-id mono">project_03</p>
             <div class="case-badges mono" aria-label="Categories"><span>full-stack</span></div>
             <h4 class="case-title">Hospital Appointment &amp; Surgery Information Platform</h4>
@@ -388,10 +388,10 @@
               <li class="pipe-step pipe-hot">PDF + Maps</li>
             </ol>
             <p class="case-meta mono">angular · node.js · mongodb</p>
-          </article>
+          </article> -->
 
           <article class="case case-compact" id="project-text-to-image">
-            <p class="case-id mono">project_04</p>
+            <p class="case-id mono">project_03</p>
             <div class="case-badges mono" aria-label="Categories"><span>generative-ai</span><span>hackathon</span></div>
             <h4 class="case-title">Text-to-Image Generation System</h4>
             <p class="case-desc">A hackathon-built generative AI prototype that turns text or spoken input into a generated image through a clean chatbot-style frontend, making the AI interaction approachable and immediate.</p>
@@ -409,22 +409,24 @@
           </article>
 
           <article class="case case-compact" id="project-autoscaler">
-            <p class="case-id mono">project_05</p>
-            <div class="case-badges mono" aria-label="Categories"><span>systems</span><span>ml</span></div>
-            <h4 class="case-title">Log-Based Predictive Autoscaler</h4>
-            <p class="case-desc">A predictive autoscaling system that consumes system and application logs, extracts behavioral features, and forecasts resource demand so infrastructure is adjusted before saturation, not after.</p>
+            <p class="case-id mono">project_04</p>
+            <div class="case-badges mono" aria-label="Categories"><span>machine learning</span><span>healthcare</span></div>
+            <h4 class="case-title">Predicting Myocardial Infarction Complications using Ensemble Learning</h4>
+            <p class="case-desc">An explainable machine learning framework for predicting complications following myocardial infarcation using clinical data and ensemble learning techniques.</p>
             <ol class="pipeline pipeline-mini" aria-hidden="true">
-              <li class="pipe-step">Logs</li>
+              <li class="pipe-step">Clinical data</li>
               <li class="pipe-arrow">→</li>
-              <li class="pipe-step">Feature Extraction</li>
+              <li class="pipe-step">Preprocesing </li>
               <li class="pipe-arrow">→</li>
-              <li class="pipe-step">Prediction Model</li>
+              <li class="pipe-step">Feature selection</li>
               <li class="pipe-arrow">→</li>
-              <li class="pipe-step">Resource Demand</li>
+              <li class="pipe-step">Models</li>
               <li class="pipe-arrow">→</li>
-              <li class="pipe-step pipe-hot">Autoscaling Decision</li>
+              <li class="pipe-step pipe-hot">Ensemble Voting</li>
+              <li class="Pipe-arrow">→</li>
+              <li class="pipe-step pipe-hot">Prediction</li>
             </ol>
-            <p class="case-meta mono">python · machine learning · systems</p>
+            <p class="case-meta mono">python · scikit-learn · XAI · Ensemble learning</p>
           </article>
         </div>
       </div>
