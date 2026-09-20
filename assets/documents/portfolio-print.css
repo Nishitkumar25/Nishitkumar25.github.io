@@ -1,0 +1,154 @@
+/* ==========================================================================
+   NISHIT KUMAR — PDF Portfolio print stylesheet
+   Standalone document; matches website design system.
+   iPhone-friendly layout: 8 × A4 pages, rendered with headless Chromium.
+   ========================================================================== */
+
+@page { size: A4; margin: 0; }
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body { background: #0a0b0e; }
+
+.page {
+  width: 210mm;
+  height: 297mm;
+  padding: 14mm 16mm 12mm;
+  page-break-after: always;
+  overflow: hidden;
+  position: relative;
+  color: #e8ebee;
+  font-family: "Inter", "Segoe UI", Arial, sans-serif;
+  font-size: 9pt;
+  line-height: 1.6;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+  background:
+    linear-gradient(rgba(30, 35, 41, 0.35) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(30, 35, 41, 0.35) 1px, transparent 1px),
+    radial-gradient(700px 320px at 88% -6%, rgba(53, 208, 140, 0.07), transparent 62%),
+    #0a0b0e;
+  background-size: 36px 36px, 36px 36px, auto, auto;
+}
+.page:last-child { page-break-after: auto; }
+
+.mono { font-family: "JetBrains Mono", Consolas, "Courier New", monospace; }
+.accent { color: #35d08c; }
+.muted { color: #a6afb9; }
+.dim { color: #67717d; }
+
+/* Frame border for each page */
+.page::after {
+  content: "";
+  position: absolute;
+  top: 7mm;
+  left: 8mm;
+  right: 8mm;
+  bottom: 7mm;
+  border: 1px solid #2c343d;
+  border-radius: 3px;
+  pointer-events: none;
+}
+
+/* Page header system */
+.pg-head {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  border-bottom: 1px solid #2c343d;
+  padding-bottom: 3.5mm;
+  margin-bottom: 6mm;
+}
+.pg-index { font-size: 8pt; color: #67717d; letter-spacing: 0.12em; }
+.pg-title { font-size: 19pt; font-weight: 600; letter-spacing: -0.02em; }
+.pg-rule { flex: 1; height: 1px; background: #2c343d; }
+
+/* Small mono section label */
+.lbl {
+  font-size: 7.5pt;
+  letter-spacing: 0.18em;
+  text-transform: lowercase;
+  color: #67717d;
+  margin-bottom: 3mm;
+}
+
+/* Two-column helper */
+.cols { display: flex; gap: 8mm; }
+.col { flex: 1; min-width: 0; }
+
+/* Panels */
+.panel { border: 1px solid #2c343d; border-radius: 4px; background: #12151a; }
+.panel-inset { border: 1px solid #1e2329; border-radius: 4px; background: #0e1014; }
+
+/* Cover ---------------------------------------------------------------- */
+.cover { display: flex; flex-direction: column; }
+.cover-top { display: flex; justify-content: space-between; font-size: 8pt; color: #67717d; letter-spacing: 0.14em; }
+.cover-mid { flex: 1; display: flex; flex-direction: column; justify-content: center; }
+.cover-name { font-size: 40pt; font-weight: 700; letter-spacing: -0.035em; line-height: 1.02; }
+.cover-role { font-size: 13pt; color: #a6afb9; margin-top: 5mm; font-weight: 500; }
+.cover-domains { font-size: 10.5pt; color: #35d08c; margin-top: 2.5mm; letter-spacing: 0.08em; }
+.cover-tagline { margin-top: 8mm; color: #a6afb9; max-width: 120mm; font-size: 9.5pt; line-height: 1.75; }
+.cover-rule { height: 1px; background: linear-gradient(90deg, #35d08c, transparent 80%); margin: 7mm 0; width: 130mm; }
+.cover-flow { font-size: 8.5pt; color: #67717d; letter-spacing: 0.05em; }
+.cover-flow .nodev { display: inline-block; border: 1px solid #2c343d; background: #0e1014; color: #a6afb9; padding: 1.5mm 3.5mm; border-radius: 3px; margin: 1mm 0.5mm; }
+.cover-flow .nodev.hot { border-color: rgba(53, 208, 140, 0.45); color: #35d08c; background: rgba(53, 208, 140, 0.1); }
+.cover-bottom { padding-top: 5mm; border-top: 1px solid #2c343d; font-size: 8pt; color: #67717d; display: flex; justify-content: space-between; letter-spacing: 0.05em; }
+
+/* Profile page ---------------------------------------------------------- */
+.summary { color: #a6afb9; font-size: 9.5pt; line-height: 1.8; }
+.summary strong { color: #e8ebee; font-weight: 600; }
+.bullets li { display: flex; gap: 3mm; padding: 2mm 0; color: #a6afb9; border-bottom: 1px solid #1e2329; }
+.bullets li:last-child { border-bottom: none; }
+.bullets .b { color: #35d08c; font-size: 8pt; min-width: 5mm; }
+.bullets b { color: #e8ebee; font-weight: 600; }
+
+.chips { display: flex; flex-wrap: wrap; gap: 2mm; }
+.chip { border: 1px solid #1e2329; background: #0e1014; color: #a6afb9; border-radius: 3px; padding: 1mm 2.5mm; font-size: 7.5pt; }
+
+/* Experience ------------------------------------------------------------ */
+.tl { position: relative; padding-left: 24mm; }
+.tl::before { content: ""; position: absolute; left: 7.5mm; top: 3mm; bottom: 3mm; width: 1px; background: #2c343d; }
+.tl-item { position: relative; padding-bottom: 7mm; }
+.tl-item::before { content: ""; position: absolute; left: -24mm; top: 2.5mm; width: 3mm; height: 3mm; border-radius: 50%; background: #0a0b0e; border: 1.5px solid #35d08c; }
+.tl-item.first::before { background: #35d08c; }
+.tl-per { font-size: 8pt; color: #35d08c; letter-spacing: 0.1em; }
+.tl-role { font-size: 13pt; font-weight: 600; margin-top: 1.5mm; }
+.tl-org { font-size: 9.5pt; color: #a6afb9; margin-top: 0.5mm; }
+.tl-desc { font-size: 8.5pt; color: #a6afb9; margin-top: 2mm; line-height: 1.7; }
+
+/* Case study fields on project page */
+.field { padding: 3mm 0; border-top: 1px solid #1e2329; }
+.field dt { font-size: 7.5pt; letter-spacing: 0.18em; color: #35d08c; margin-bottom: 1.2mm; text-transform: lowercase; }
+.field dd { color: #a6afb9; font-size: 8.5pt; line-height: 1.7; }
+
+/* Pipelines */
+.pipe { display: flex; flex-wrap: wrap; align-items: center; gap: 1.5mm; }
+.pipe .step { border: 1px solid #2c343d; background: #12151a; border-radius: 3px; color: #a6afb9; font-size: 7pt; padding: 1.6mm 2.6mm; }
+.pipe .step.hot { border-color: rgba(53, 208, 140, 0.5); color: #35d08c; background: rgba(53, 208, 140, 0.1); }
+.pipe .step small { display: block; color: #67717d; font-size: 6.5pt; margin-top: 0.5mm; }
+.pipe .arr { color: #67717d; font-size: 8pt; }
+
+.other-grid .mbox { margin-bottom: 5mm; }
+.mbox .m-title { font-size: 11.5pt; font-weight: 600; }
+.mbox .m-cat { font-size: 7.5pt; color: #67717d; letter-spacing: 0.12em; }
+.mbox .m-desc { font-size: 8.5pt; color: #a6afb9; margin-top: 1.5mm; line-height: 1.65; }
+.mbox .m-meta { font-size: 7.5pt; color: #35d08c; margin-top: 1.8mm; }
+
+/* Skills table */
+.skills-grid { display: grid; grid-template-columns: 36mm 1fr; }
+.skills-grid .g { border: 1px solid #1e2329; border-bottom: none; }
+.skills-grid .g:last-child { border-bottom: 1px solid #1e2329; }
+.skills-grid .g.head { color: #35d08c; font-size: 7.5pt; letter-spacing: 0.12em; background: #0e1014; padding: 2mm 3mm; display: flex; align-items: center; }
+.skills-grid .g.vals { padding: 2.4mm 3mm; color: #a6afb9; font-size: 8pt; background: #12151a; }
+
+/* Research (page 5) */
+.research-shell { border: 1px dashed #35d08c; border-radius: 4px; background: #12151a; padding: 6mm; }
+
+/* Contact (page 8) */
+.contact { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+.contact-title { font-size: 26pt; font-weight: 700; letter-spacing: -0.03em; margin-top: 6mm; }
+.contact-sub { color: #a6afb9; font-size: 10pt; margin-top: 4mm; }
+.contact-list { margin-top: 8mm; display: flex; flex-direction: column; gap: 2.5mm; font-size: 9pt; color: #a6afb9; }
+.contact-qr { margin-top: 9mm; }
+.contact-qr img { width: 34mm; height: 34mm; border: 1px solid #2c343d; border-radius: 3mm; padding: 2mm; background: #ffffff; }
+.contact-qr .qr-cap { font-size: 7.5pt; color: #67717d; margin-top: 2mm; letter-spacing: 0.08em; }

@@ -1,0 +1,97 @@
+/* ==========================================================================
+   NISHIT KUMAR — Engineering Portfolio
+   Vanilla JS, no dependencies. GitHub Pages compatible.
+   1. Mobile navigation toggle
+   2. Scroll-spy active state for primary nav
+   3. IntersectionObserver section reveals
+   4. Accessibility: Escape closes the mobile menu
+   ========================================================================== */
+(function () {
+  "use strict";
+
+  var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* ---------- 1. Mobile navigation ---------- */
+  var toggleBtn = document.querySelector(".nav-toggle");
+  var mobileMenu = document.getElementById("mobile-menu");
+
+  function closeMenu() {
+    if (!mobileMenu || !toggleBtn) return;
+    mobileMenu.hidden = true;
+    toggleBtn.setAttribute("aria-expanded", "false");
+  }
+
+  if (toggleBtn && mobileMenu) {
+    toggleBtn.addEventListener("click", function () {
+      var open = mobileMenu.hidden;
+      mobileMenu.hidden = !open;
+      toggleBtn.setAttribute("aria-expanded", String(open));
+    });
+
+    mobileMenu.addEventListener("click", function (e) {
+      if (e.target && e.target.closest("a")) closeMenu();
+    });
+
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && !mobileMenu.hidden) {
+        closeMenu();
+        toggleBtn.focus();
+      }
+    });
+  }
+
+  /* ---------- 2. Scroll-spy ---------- */
+  var navLinks = document.querySelectorAll(".nav-list a[href^='#']");
+
+  if (navLinks.length && "IntersectionObserver" in window) {
+    var sections = [];
+    navLinks.forEach(function (link) {
+      var target = document.querySelector(link.getAttribute("href"));
+      if (target) sections.push(target);
+    });
+
+    var spy = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            navLinks.forEach(function (l) {
+              l.classList.toggle("is-active", l.getAttribute("href") === "#" + entry.target.id);
+            });
+          }
+        });
+      },
+      { rootMargin: "-40% 0px -55% 0px", threshold: 0 }
+    );
+
+    sections.forEach(function (s) { spy.observe(s); });
+  }
+
+  /* ---------- 3. Section reveals ---------- */
+  var revealSections = document.querySelectorAll(".section");
+
+  if (revealSections.length) {
+    if (reduceMotion || !("IntersectionObserver" in window)) {
+      revealSections.forEach(function (s) { s.classList.add("is-visible"); });
+    } else {
+      var reveal = new IntersectionObserver(
+        function (entries, observer) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("is-visible");
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.12, rootMargin: "0px 0px -8% 0px" }
+      );
+      revealSections.forEach(function (s) { reveal.observe(s); });
+    }
+  }
+
+  /* ---------- 4. Set current-year copies ---------- */
+  var yearEls = document.querySelectorAll("[data-year]");
+  if (yearEls.length) {
+    var year = new Date().getFullYear();
+    yearEls.forEach(function (el) { el.textContent = year; });
+  }
+})();
