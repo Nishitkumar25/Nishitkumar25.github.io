@@ -1,6 +1,7 @@
 /* ==========================================================================
    NISHIT KUMAR — Engineering Portfolio
    Vanilla JS, no dependencies. GitHub Pages compatible.
+   0. Light/dark theme toggle (persisted, respects prefers-color-scheme)
    1. Mobile navigation toggle
    2. Scroll-spy active state for primary nav
    3. IntersectionObserver section reveals
@@ -8,6 +9,49 @@
    ========================================================================== */
 (function () {
   "use strict";
+
+  /* ---------- 0. Theme toggle ---------- */
+  var root = document.documentElement;
+  var themeToggles = document.querySelectorAll(".theme-toggle");
+  var metaTheme = document.querySelector('meta[name="theme-color"]');
+
+  function getTheme() {
+    return root.getAttribute("data-theme") === "light" ? "light" : "dark";
+  }
+
+  function renderTheme(theme) {
+    themeToggles.forEach(function (btn) {
+      var icon = btn.querySelector(".theme-toggle-icon");
+      var toLight = theme === "dark";
+      btn.setAttribute("aria-label", toLight ? "Switch to light mode" : "Switch to dark mode");
+      btn.setAttribute("aria-pressed", String(theme === "light"));
+      btn.title = toLight ? "Switch to light mode" : "Switch to dark mode";
+      if (icon) icon.textContent = toLight ? "\u2600" : "\u263E"; // ☀ / ☾
+    });
+    if (metaTheme) metaTheme.setAttribute("content", theme === "light" ? "#f6f8f9" : "#0A0B0E");
+  }
+
+  function setTheme(theme) {
+    root.setAttribute("data-theme", theme);
+    try { localStorage.setItem("nk-theme", theme); } catch (e) { /* private mode */ }
+    renderTheme(theme);
+  }
+
+  if (!root.getAttribute("data-theme")) {
+    var initial = "dark";
+    try {
+      initial = localStorage.getItem("nk-theme") ||
+        (window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark");
+    } catch (e) { /* ignore */ }
+    root.setAttribute("data-theme", initial);
+  }
+  renderTheme(getTheme());
+
+  themeToggles.forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      setTheme(getTheme() === "dark" ? "light" : "dark");
+    });
+  });
 
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
