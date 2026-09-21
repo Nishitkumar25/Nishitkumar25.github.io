@@ -34,7 +34,81 @@
   --head-h: 64px;
 
   --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+
+  color-scheme: dark;
 }
+
+/* Light theme — same tokens, flipped surfaces */
+:root[data-theme="light"] {
+  --bg:            #f6f8f9;
+  --bg-soft:       #ffffff;
+  --bg-card:       #ffffff;
+  --bg-card-hover: #eef3f1;
+  --bg-sunken:     #e9eef1;
+
+  --line:          #dde4e9;
+  --line-strong:   #c3ced6;
+  --line-accent:   rgba(5, 150, 105, 0.4);
+
+  --text:          #131a20;
+  --text-2:        #46525d;
+  --text-3:        #75828d;
+
+  --accent:        #059669;
+  --accent-ink:    #ffffff;
+  --accent-soft:   rgba(5, 150, 105, 0.12);
+
+  color-scheme: light;
+}
+
+/* Theme toggle button */
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  margin-left: 12px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  background: var(--bg-sunken);
+  color: var(--text-2);
+  font-size: 16px;
+  line-height: 1;
+  cursor: pointer;
+  transition: color 0.2s var(--ease), border-color 0.2s var(--ease), background 0.2s var(--ease);
+}
+.theme-toggle:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+.theme-toggle-icon { display: block; transform: translateY(-1px); }
+
+/* Smooth theme switch */
+body, .site-header, .case, .stack-panel, .about-panel,
+.diagram-frame, .case-arch, .research-card, .research-aside,
+.edu-panel, .cert-item, .hack-panel, .resume-banner,
+.repo-item, .mobile-menu {
+  transition: background-color 0.25s var(--ease), border-color 0.25s var(--ease), color 0.25s var(--ease);
+}
+
+/* Light-theme surface fixes for hardcoded dark glows */
+:root[data-theme="light"] .site-header { background: rgba(246, 248, 249, 0.9); }
+:root[data-theme="light"] .hero {
+  background:
+    linear-gradient(rgba(195, 206, 214, 0.35) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(195, 206, 214, 0.35) 1px, transparent 1px),
+    radial-gradient(900px 420px at 85% -10%, rgba(5, 150, 105, 0.1), transparent 60%),
+    var(--bg);
+}
+:root[data-theme="light"] .btn-primary:hover { background: #047857; }
+:root[data-theme="light"] .case-research {
+  background:
+    repeating-linear-gradient(0deg, transparent 0 27px, rgba(195, 206, 214, 0.4) 27px 28px),
+    var(--bg-card);
+}
+:root[data-theme="light"] .resume-banner::after { color: rgba(19, 26, 32, 0.05); }
 
 /* --------------------------------------------------------------------------
    2. Reset / base
@@ -827,7 +901,8 @@ dt, dd { margin: 0; }
 
 @media (max-width: 720px) {
   .site-nav, .nav-resume { display: none; }
-  .nav-toggle { display: inline-flex; margin-left: auto; }
+  .theme-toggle { margin-left: auto; }
+  .nav-toggle { display: inline-flex; margin-left: 8px; }
   .header-inner { gap: 12px; }
   .mobile-menu a { font-size: 14px; }
 
