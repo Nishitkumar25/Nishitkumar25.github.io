@@ -5,60 +5,92 @@
    ========================================================================== */
 
 /* --------------------------------------------------------------------------
-   1. Design tokens
+   1. Design tokens — "Enterprise Slate"
+   Light-first: :root carries the light palette, and [data-theme="dark"]
+   overrides it. Every theme-dependent value in this file is a token, so a
+   palette change never means hunting for hard-coded colors.
    -------------------------------------------------------------------------- */
 :root {
-  --bg:            #0a0b0e;
-  --bg-soft:       #0e1014;
-  --bg-card:       #12151a;
-  --bg-card-hover: #15191f;
-  --bg-sunken:     #08090c;
+  /* Surfaces */
+  --bg:            #f7f9fc;
+  --bg-soft:       #ffffff;
+  --bg-card:       #ffffff;
+  --bg-card-hover: #f3f6fb;
+  --bg-sunken:     #eef2f8;
 
-  --line:          #1e2329;
-  --line-strong:   #2c343d;
-  --line-accent:   rgba(53, 208, 140, 0.35);
+  /* Borders */
+  --line:          #e2e8f1;
+  --line-strong:   #cbd5e3;
+  --line-accent:   rgba(37, 99, 235, 0.42);
 
-  --text:          #e8ebee;
-  --text-2:        #a6afb9;
-  --text-3:        #67717d;
+  /* Text */
+  --text:          #0f1b2d;
+  --text-2:        #4a5a72;
+  --text-3:        #76859a;
 
-  --accent:        #35d08c;
-  --accent-ink:    #06130d;
-  --accent-soft:   rgba(53, 208, 140, 0.1);
+  /* Accent */
+  --accent:        #2563eb;
+  --accent-hover:  #1d4ed8;
+  --accent-ink:    #ffffff;
+  --accent-soft:   rgba(37, 99, 235, 0.09);
 
+  /* Decorative surfaces */
+  --grid-line:     rgba(15, 27, 45, 0.055);  /* hero blueprint grid     */
+  --accent-wash:   rgba(37, 99, 235, 0.10);  /* hero corner glow        */
+  --rule-faint:    rgba(15, 27, 45, 0.05);   /* research card ruling    */
+  --watermark:     rgba(15, 27, 45, 0.045);  /* resume banner lettering */
+  --backdrop:      rgba(15, 27, 45, 0.48);   /* dialog backdrop         */
+  --header-bg:     rgba(247, 249, 252, 0.82);
+  --inset-shadow:  inset 0 1px 2px rgba(15, 27, 45, 0.045);
+  --pulse-fade:    rgba(37, 99, 235, 0.04);
+
+  /* Type */
   --sans: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
   --mono: "JetBrains Mono", "Cascadia Code", Consolas, "Courier New", monospace;
 
-  --radius: 6px;
-  --max-w: 1120px;
+  /* Geometry */
+  --radius: 8px;
+  --radius-sm: 6px;
+  --max-w: 1180px;
   --head-h: 64px;
+  --gutter: clamp(16px, 4vw, 28px);
 
   --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
 
-  color-scheme: dark;
+  color-scheme: light;
 }
 
-/* Light theme — same tokens, flipped surfaces */
-:root[data-theme="light"] {
-  --bg:            #f6f8f9;
-  --bg-soft:       #ffffff;
-  --bg-card:       #ffffff;
-  --bg-card-hover: #eef3f1;
-  --bg-sunken:     #e9eef1;
+/* Dark theme — the same slate, inverted */
+:root[data-theme="dark"] {
+  --bg:            #0c1017;
+  --bg-soft:       #10151f;
+  --bg-card:       #141a25;
+  --bg-card-hover: #19202d;
+  --bg-sunken:     #0a0e15;
 
-  --line:          #dde4e9;
-  --line-strong:   #c3ced6;
-  --line-accent:   rgba(5, 150, 105, 0.4);
+  --line:          #1e2634;
+  --line-strong:   #2c3749;
+  --line-accent:   rgba(96, 165, 250, 0.42);
 
-  --text:          #131a20;
-  --text-2:        #46525d;
-  --text-3:        #75828d;
+  --text:          #e8edf6;
+  --text-2:        #a3b0c4;
+  --text-3:        #6f7e94;
 
-  --accent:        #059669;
-  --accent-ink:    #ffffff;
-  --accent-soft:   rgba(5, 150, 105, 0.12);
+  --accent:        #60a5fa;
+  --accent-hover:  #93c5fd;
+  --accent-ink:    #06152b;
+  --accent-soft:   rgba(96, 165, 250, 0.12);
 
-  color-scheme: light;
+  --grid-line:     rgba(148, 174, 214, 0.07);
+  --accent-wash:   rgba(96, 165, 250, 0.09);
+  --rule-faint:    rgba(148, 174, 214, 0.055);
+  --watermark:     rgba(232, 237, 246, 0.03);
+  --backdrop:      rgba(3, 6, 12, 0.74);
+  --header-bg:     rgba(12, 16, 23, 0.8);
+  --inset-shadow:  inset 0 1px 2px rgba(0, 0, 0, 0.22);
+  --pulse-fade:    rgba(96, 165, 250, 0.04);
+
+  color-scheme: dark;
 }
 
 /* Theme toggle button */
@@ -93,22 +125,8 @@ body, .site-header, .case, .stack-panel, .about-panel,
   transition: background-color 0.25s var(--ease), border-color 0.25s var(--ease), color 0.25s var(--ease);
 }
 
-/* Light-theme surface fixes for hardcoded dark glows */
-:root[data-theme="light"] .site-header { background: rgba(246, 248, 249, 0.9); }
-:root[data-theme="light"] .hero {
-  background:
-    linear-gradient(rgba(195, 206, 214, 0.35) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(195, 206, 214, 0.35) 1px, transparent 1px),
-    radial-gradient(900px 420px at 85% -10%, rgba(5, 150, 105, 0.1), transparent 60%),
-    var(--bg);
-}
-:root[data-theme="light"] .btn-primary:hover { background: #047857; }
-:root[data-theme="light"] .case-research {
-  background:
-    repeating-linear-gradient(0deg, transparent 0 27px, rgba(195, 206, 214, 0.4) 27px 28px),
-    var(--bg-card);
-}
-:root[data-theme="light"] .resume-banner::after { color: rgba(19, 26, 32, 0.05); }
+/* No per-theme component overrides are needed any more: every surface below
+   is built from the tokens above, so both themes follow automatically. */
 
 /* --------------------------------------------------------------------------
    2. Reset / base
@@ -196,7 +214,7 @@ dt, dd { margin: 0; }
 .btn:active { transform: translateY(1px); }
 
 .btn-primary { background: var(--accent); color: var(--accent-ink); }
-.btn-primary:hover { background: #44dda0; }
+.btn-primary:hover { background: var(--accent-hover); }
 
 .btn-ghost { background: transparent; color: var(--text); border-color: var(--line-strong); }
 .btn-ghost:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
@@ -228,7 +246,7 @@ dt, dd { margin: 0; }
   position: sticky;
   top: 0;
   z-index: 100;
-  background: rgba(10, 11, 14, 0.9);
+  background: var(--header-bg);
   backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--line);
 }
@@ -317,9 +335,9 @@ dt, dd { margin: 0; }
   overflow: hidden;
   border-bottom: 1px solid var(--line);
   background:
-    linear-gradient(rgba(30, 35, 41, 0.35) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(30, 35, 41, 0.35) 1px, transparent 1px),
-    radial-gradient(900px 420px at 85% -10%, rgba(53, 208, 140, 0.07), transparent 60%),
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px),
+    radial-gradient(900px 420px at 85% -10%, var(--accent-wash), transparent 60%),
     var(--bg);
   background-size: 44px 44px, 44px 44px, auto, auto;
 }
@@ -343,7 +361,7 @@ dt, dd { margin: 0; }
 .status-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); animation: pulse 2.4s infinite; }
 @keyframes pulse {
   0%, 100% { box-shadow: 0 0 0 3px var(--accent-soft); }
-  50%      { box-shadow: 0 0 0 6px rgba(53, 208, 140, 0.04); }
+  50%      { box-shadow: 0 0 0 6px var(--pulse-fade); }
 }
 
 .hero-title { font-size: clamp(44px, 7vw, 76px); letter-spacing: -0.035em; line-height: 1.02; }
@@ -462,11 +480,6 @@ dt, dd { margin: 0; }
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 14px;
 }
-.stack-grid .stack-panel:nth-child(5),
-.stack-grid .stack-panel:nth-child(6),
-.stack-grid .stack-panel:nth-child(7) { grid-column: auto; }
-.stack-grid .stack-panel:last-child { grid-column: auto; }
-
 .stack-panel {
   border: 1px solid var(--line);
   border-radius: var(--radius);
@@ -571,7 +584,7 @@ dt, dd { margin: 0; }
 .case-research {
   border-style: dashed;
   background:
-    repeating-linear-gradient(0deg, transparent 0 27px, rgba(30, 35, 41, 0.4) 27px 28px),
+    repeating-linear-gradient(0deg, transparent 0 27px, var(--rule-faint) 27px 28px),
     var(--bg-card);
   position: relative;
 }
@@ -795,7 +808,7 @@ dt, dd { margin: 0; }
   font-family: var(--mono);
   font-size: 88px;
   font-weight: 700;
-  color: rgba(255, 255, 255, 0.028);
+  color: var(--watermark);
   letter-spacing: -0.03em;
   pointer-events: none;
 }
@@ -899,13 +912,18 @@ dt, dd { margin: 0; }
   .hero-axis { display: none; }
 }
 
-@media (max-width: 720px) {
+/* The primary nav + resume button + theme toggle no longer fit beside the
+   brand below this width, so switch to the mobile menu here rather than at
+   720px (which caused horizontal page scroll on tablets). */
+@media (max-width: 900px) {
   .site-nav, .nav-resume { display: none; }
   .theme-toggle { margin-left: auto; }
   .nav-toggle { display: inline-flex; margin-left: 8px; }
   .header-inner { gap: 12px; }
   .mobile-menu a { font-size: 14px; }
+}
 
+@media (max-width: 720px) {
   .stack-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .case-grid { grid-template-columns: 1fr; }
 
@@ -940,4 +958,932 @@ dt, dd { margin: 0; }
   }
   .section .container > * { opacity: 1; transform: none; }
   .status-dot { animation: none; }
+}
+/* --------------------------------------------------------------------------
+   21. Portfolio upgrade — hero org line, skill category heads, capstone
+       cards, project detail dialogs, experience chips, group labels.
+       Uses the existing design tokens only; no new colors or fonts.
+   -------------------------------------------------------------------------- */
+
+/* Hero: employer / business-area line under the role */
+.hero-org {
+  margin-top: 8px;
+  font-size: 12.5px;
+  color: var(--text-3);
+  letter-spacing: 0.04em;
+}
+
+/* Section group labels (capstone_platforms / earlier_work) */
+.group-label {
+  font-size: 11.5px;
+  letter-spacing: 0.16em;
+  color: var(--text-3);
+  margin-bottom: 4px;
+}
+.group-label-gap { margin-top: 56px; }
+
+/* --- Skills: category head with icon -------------------------------------- */
+.stack-head {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-bottom: 14px;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: lowercase;
+  color: var(--text-3);
+}
+.stack-ico {
+  width: 16px;
+  height: 16px;
+  flex: 0 0 auto;
+  color: var(--accent);
+  transition: transform 0.2s var(--ease);
+}
+.stack-panel:hover .stack-ico { transform: scale(1.1); }
+.stack-panel { display: flex; flex-direction: column; }
+.stack-panel-wide { grid-column: span 2; }
+
+/* --- Capstone project cards ----------------------------------------------- */
+.case-capstone { margin-top: 16px; }
+.case-capstone .case-badges span { border-color: var(--line-strong); color: var(--text-2); }
+.case-capstone .case-id { color: var(--text-2); }
+
+.case-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px 20px;
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+}
+.case-note { font-size: 11.5px; color: var(--text-3); letter-spacing: 0.06em; }
+
+/* --- Project detail dialogs ----------------------------------------------- */
+.case-dialogs { display: contents; }
+
+.case-dialog {
+  width: min(880px, calc(100vw - 32px));
+  max-height: min(86vh, 900px);
+  padding: 0;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  background: var(--bg-card);
+  color: var(--text);
+  overflow: hidden;
+}
+.case-dialog::backdrop {
+  background: var(--backdrop);
+  backdrop-filter: blur(3px);
+}
+
+.case-dialog[open] { animation: dlg-in 0.22s var(--ease) both; }
+@keyframes dlg-in {
+  from { opacity: 0; transform: translateY(10px) scale(0.99); }
+  to   { opacity: 1; transform: none; }
+}
+
+.dlg-inner { display: flex; flex-direction: column; max-height: inherit; }
+
+.dlg-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  padding: 22px clamp(20px, 3.4vw, 32px) 18px;
+  border-bottom: 1px solid var(--line);
+  background: var(--bg-sunken);
+  position: relative;
+}
+.dlg-head::after {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent), transparent 70%);
+}
+.dlg-eyebrow { font-size: 11.5px; letter-spacing: 0.12em; color: var(--text-3); margin-bottom: 10px; }
+.dlg-title { font-size: clamp(18px, 2.6vw, 23px); letter-spacing: -0.02em; line-height: 1.3; }
+
+.dlg-close {
+  flex: 0 0 auto;
+  width: 34px;
+  height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: auto;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  background: var(--bg-card);
+  color: var(--text-2);
+  font-size: 13px;
+  line-height: 1;
+  cursor: pointer;
+  transition: color 0.18s, border-color 0.18s, background 0.18s;
+}
+.dlg-close:hover { color: var(--accent); border-color: var(--accent); background: var(--accent-soft); }
+
+.dlg-body {
+  padding: 4px clamp(20px, 3.4vw, 32px) 28px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+.dlg-sec { padding-top: 24px; }
+.dlg-sec + .dlg-sec { border-top: 1px solid var(--line); margin-top: 4px; }
+.dlg-h {
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: lowercase;
+  color: var(--accent);
+  font-family: var(--mono);
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+.dlg-body p { color: var(--text-2); font-size: 14.5px; line-height: 1.75; }
+.dlg-body p + p { margin-top: 12px; }
+.dlg-body strong { color: var(--text); font-weight: 600; }
+.dlg-body code {
+  font-family: var(--mono);
+  font-size: 12.5px;
+  padding: 1px 5px;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  background: var(--bg-sunken);
+  color: var(--text-2);
+}
+
+.dlg-list { margin-top: 10px; display: grid; gap: 8px; }
+.dlg-list li {
+  position: relative;
+  padding-left: 20px;
+  color: var(--text-2);
+  font-size: 14px;
+  line-height: 1.7;
+}
+.dlg-list li::before {
+  content: "\25B8";
+  position: absolute;
+  left: 2px;
+  top: 0;
+  color: var(--accent);
+  font-size: 12px;
+}
+.dlg-list-two { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px 28px; }
+
+.dlg-stack { margin-top: 6px; display: grid; gap: 0; }
+.dlg-stack > div {
+  padding: 12px 0;
+  border-bottom: 1px solid var(--line);
+  display: grid;
+  grid-template-columns: 110px minmax(0, 1fr);
+  gap: 16px;
+}
+.dlg-stack > div:last-child { border-bottom: none; }
+.dlg-stack dt { font-size: 11px; letter-spacing: 0.12em; color: var(--text-3); padding-top: 3px; }
+.dlg-stack dd { color: var(--text-2); font-size: 14px; line-height: 1.7; }
+
+.dlg-note {
+  margin-top: 12px;
+  border-left: 2px solid var(--line-accent);
+  background: var(--bg-sunken);
+  padding: 14px 16px;
+  border-radius: 0 var(--radius) var(--radius) 0;
+  font-size: 13.5px;
+}
+
+/* No-JavaScript fallback: dialogs become ordinary panels, nothing is hidden */
+html:not(.js) .case-dialogs {
+  display: grid;
+  gap: 20px;
+  max-width: var(--max-w);
+  margin: 0 auto 84px;
+  padding: 0 24px;
+}
+html:not(.js) .case-dialog {
+  display: block;
+  position: static;
+  width: auto;
+  max-height: none;
+}
+html:not(.js) .dlg-close,
+html:not(.js) .case-actions .btn { display: none; }
+
+/* --- Experience: current marker + technical-area chips -------------------- */
+.tl-item:nth-child(2) .tl-marker::after { opacity: 0; }
+.tl-item-current .tl-marker::after { opacity: 1; }
+
+.tl-now {
+  display: inline-block;
+  margin-left: 8px;
+  padding: 1px 8px;
+  border: 1px solid var(--line-accent);
+  border-radius: 999px;
+  background: var(--accent-soft);
+  font-size: 10.5px;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+  vertical-align: 2px;
+}
+.tl-meta { margin-top: 6px; font-size: 12.5px; color: var(--text-3); letter-spacing: 0.04em; }
+.tl-tags-label {
+  margin-top: 18px;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: lowercase;
+  color: var(--text-3);
+}
+.tl-tags { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 8px; max-width: 700px; }
+.tl-tags li {
+  font-size: 12px;
+  color: var(--text-2);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 4px 9px;
+  background: var(--bg-sunken);
+  transition: color 0.18s, border-color 0.18s;
+}
+.tl-tags li:hover { color: var(--accent); border-color: var(--line-accent); }
+
+/* --- Responsive adjustments for the new blocks ---------------------------- */
+@media (max-width: 1024px) {
+  .stack-panel-wide { grid-column: span 3; }
+}
+@media (max-width: 880px) {
+  .dlg-list-two { grid-template-columns: 1fr; }
+  .dlg-stack > div { grid-template-columns: 1fr; gap: 4px; }
+}
+@media (max-width: 720px) {
+  .stack-panel-wide { grid-column: span 2; }
+  .case-dialog { width: calc(100vw - 20px); max-height: 92vh; }
+  .case-actions { flex-direction: column; align-items: flex-start; }
+  .case-actions .btn { width: 100%; justify-content: center; }
+}
+@media (max-width: 480px) {
+  .stack-panel-wide { grid-column: span 1; }
+}
+
+/* ==========================================================================
+   22. UI polish — depth, typography, interaction
+   A refinement pass over the existing design language: no new colors beyond
+   the tokens already defined, no new fonts, no new dependencies.
+   ========================================================================== */
+
+:root {
+  /* Elevation. On paper-like light surfaces the shadow is a cool slate tint
+     rather than neutral black, which keeps cards from looking muddy. */
+  --shadow-sm: 0 1px 2px rgba(15, 27, 45, 0.05);
+  --shadow-md: 0 1px 3px rgba(15, 27, 45, 0.06), 0 10px 26px -14px rgba(15, 27, 45, 0.16);
+  --shadow-lg: 0 2px 6px rgba(15, 27, 45, 0.07), 0 28px 60px -24px rgba(15, 27, 45, 0.26);
+  --edge-light: inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  --accent-glow: 0 0 0 1px rgba(37, 99, 235, 0.18), 0 10px 30px -14px rgba(37, 99, 235, 0.35);
+  --btn-shadow: 0 1px 2px rgba(15, 27, 45, 0.12);
+  --btn-shadow-hover: 0 2px 4px rgba(15, 27, 45, 0.14);
+}
+
+:root[data-theme="dark"] {
+  /* Dark surfaces need a deeper ambient shadow plus a 1px inner highlight on
+     the top edge, so a card still reads as lit from above. */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.32);
+  --shadow-md: 0 2px 4px rgba(0, 0, 0, 0.26), 0 8px 24px -12px rgba(0, 0, 0, 0.62);
+  --shadow-lg: 0 4px 8px rgba(0, 0, 0, 0.3), 0 24px 56px -20px rgba(0, 0, 0, 0.76);
+  --edge-light: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  --accent-glow: 0 0 0 1px rgba(96, 165, 250, 0.2), 0 10px 30px -14px rgba(96, 165, 250, 0.45);
+  --btn-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --btn-shadow-hover: 0 2px 4px rgba(0, 0, 0, 0.34);
+}
+
+/* --------------------------------------------------------------------------
+   22.1 Typography refinement
+   -------------------------------------------------------------------------- */
+body { font-size: 16.5px; letter-spacing: -0.003em; }
+
+h1, h2, h3, h4 { text-wrap: balance; }
+.hero-blurb, .case-subtitle, .about-copy p, .tl-desc,
+.dlg-body p, .section-intro, .case-desc { text-wrap: pretty; }
+
+.hero-title { font-weight: 700; letter-spacing: -0.04em; }
+.section-title { font-weight: 650; }
+.case-title { font-weight: 650; }
+
+/* --------------------------------------------------------------------------
+   22.2 Reading progress bar
+   -------------------------------------------------------------------------- */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  z-index: 120;
+  background: transparent;
+  pointer-events: none;
+}
+.scroll-progress-bar {
+  display: block;
+  height: 100%;
+  width: 0;
+  background: linear-gradient(90deg, var(--accent), color-mix(in srgb, var(--accent) 55%, transparent));
+  box-shadow: 0 0 12px -2px var(--accent);
+  transition: width 0.08s linear;
+}
+
+/* --------------------------------------------------------------------------
+   22.3 Header
+   -------------------------------------------------------------------------- */
+.site-header {
+  background: var(--header-bg);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.25s var(--ease), box-shadow 0.25s var(--ease),
+              background-color 0.25s var(--ease);
+}
+
+.site-header.is-scrolled {
+  border-bottom-color: var(--line);
+  box-shadow: var(--shadow-sm);
+}
+
+.brand-mark {
+  box-shadow: var(--edge-light);
+  transition: border-color 0.2s var(--ease), color 0.2s var(--ease), transform 0.2s var(--ease);
+}
+.brand:hover .brand-mark { border-color: var(--accent); transform: translateY(-1px); }
+
+/* Nav: quiet by default, accent underline when active */
+.nav-list a {
+  position: relative;
+  border: none;
+  background: transparent;
+}
+.nav-list a::after {
+  content: "";
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: 2px;
+  height: 1.5px;
+  border-radius: 2px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.25s var(--ease);
+}
+.nav-list a:hover { color: var(--text); background: transparent; }
+.nav-list a:hover::after { transform: scaleX(0.4); }
+.nav-list a.is-active { color: var(--accent); background: transparent; border-color: transparent; }
+.nav-list a.is-active::after { transform: scaleX(1); }
+
+.theme-toggle { box-shadow: var(--edge-light); }
+
+/* --------------------------------------------------------------------------
+   22.4 Buttons
+   -------------------------------------------------------------------------- */
+.btn {
+  border-radius: 7px;
+  transition: background 0.2s var(--ease), border-color 0.2s var(--ease),
+              color 0.2s var(--ease), transform 0.18s var(--ease), box-shadow 0.2s var(--ease);
+}
+.btn-primary {
+  box-shadow: var(--btn-shadow), 0 8px 20px -10px color-mix(in srgb, var(--accent) 55%, transparent);
+}
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--btn-shadow-hover), 0 14px 28px -12px color-mix(in srgb, var(--accent) 65%, transparent);
+}
+.btn-ghost { box-shadow: var(--edge-light); }
+.btn-ghost:hover { transform: translateY(-1px); box-shadow: var(--edge-light), var(--shadow-sm); }
+.btn:active { transform: translateY(1px); box-shadow: var(--shadow-sm); }
+
+/* --------------------------------------------------------------------------
+   22.5 Section headers — accent tick before the index
+   -------------------------------------------------------------------------- */
+.section { padding: 96px 0; }
+.section-head { margin-bottom: 44px; align-items: center; }
+.section-index {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+}
+.section-index::before {
+  content: "";
+  width: 18px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--accent);
+  display: inline-block;
+}
+.section-rule { background: linear-gradient(90deg, var(--line), transparent); }
+
+/* --------------------------------------------------------------------------
+   22.6 Surfaces — cards get depth, a lit top edge and a lift on hover
+   -------------------------------------------------------------------------- */
+.stack-panel,
+.case,
+.research-card,
+.edu-panel,
+.cert-item,
+.hack-panel,
+.about-panel,
+.diagram-frame,
+.resume-banner {
+  box-shadow: var(--edge-light), var(--shadow-md);
+}
+
+.stack-panel,
+.case-compact,
+.edu-panel,
+.cert-item {
+  transition: border-color 0.22s var(--ease), background 0.22s var(--ease),
+              box-shadow 0.22s var(--ease), transform 0.22s var(--ease);
+}
+.stack-panel:hover,
+.case-compact:hover,
+.edu-panel:hover,
+.cert-item:hover {
+  transform: translateY(-3px);
+  border-color: var(--line-strong);
+  box-shadow: var(--edge-light), var(--shadow-lg);
+}
+
+/* Feature cases: a quiet accent rail on the left, brightening on hover */
+.case-feature { transition: box-shadow 0.25s var(--ease), border-color 0.25s var(--ease); }
+.case-feature::before { height: 2px; opacity: 0.85; transition: opacity 0.25s var(--ease); }
+.case-feature:hover::before { opacity: 1; }
+.case-feature:hover { box-shadow: var(--edge-light), var(--shadow-lg); }
+
+.case-capstone { border-color: var(--line-strong); }
+.case-capstone::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 2px;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(180deg, var(--accent), transparent 55%);
+  opacity: 0.5;
+  border-radius: 0 0 0 var(--radius);
+  transition: opacity 0.25s var(--ease);
+}
+.case-capstone:hover::after { opacity: 1; }
+
+/* Badges: pill-shaped, uppercase, calmer weight */
+.case-badges span {
+  border-radius: 999px;
+  padding: 4px 11px;
+  font-size: 10.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  box-shadow: var(--edge-light);
+  transition: color 0.18s, border-color 0.18s;
+}
+.case:hover .case-badges span { border-color: var(--line-strong); }
+
+/* Technology tags */
+.tag-list li,
+.tl-tags li {
+  border-radius: 999px;
+  padding: 5px 11px;
+  box-shadow: var(--edge-light);
+  transition: color 0.18s var(--ease), border-color 0.18s var(--ease), transform 0.18s var(--ease);
+}
+.tag-list li:hover,
+.tl-tags li:hover { transform: translateY(-1px); }
+
+/* Architecture pipelines */
+.case-arch { box-shadow: var(--inset-shadow); }
+.pipe-step { box-shadow: var(--edge-light); border-radius: 5px; }
+.pipe-hot { box-shadow: var(--edge-light), 0 0 0 1px color-mix(in srgb, var(--accent) 20%, transparent); }
+
+/* --------------------------------------------------------------------------
+   22.7 Hero
+   -------------------------------------------------------------------------- */
+.hero { padding: 104px 0 64px; }
+.hero-title { margin-top: 4px; }
+.hero-blurb { font-size: 17.5px; }
+
+.hero-status {
+  box-shadow: var(--edge-light), var(--shadow-sm);
+  font-weight: 500;
+}
+
+/* The tech strip under the hero */
+.hero-axis {
+  margin-top: 64px;
+  padding-top: 20px;
+  gap: 10px 28px;
+  justify-content: flex-start;
+  font-size: 11.5px;
+  letter-spacing: 0.1em;
+}
+.hero-axis span {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  color: var(--text-3);
+  transition: color 0.2s var(--ease);
+}
+.hero-axis span::before {
+  content: "";
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--accent);
+  opacity: 0.55;
+  flex: 0 0 auto;
+}
+.hero-axis span:hover { color: var(--text-2); }
+
+.diagram-frame { background: linear-gradient(160deg, var(--bg-card), var(--bg-sunken)); }
+.flow-stack .node { box-shadow: var(--edge-light); transition: border-color 0.2s var(--ease), transform 0.2s var(--ease); }
+.flow-stack li:hover .node { border-color: var(--line-accent); transform: translateX(2px); }
+
+/* --------------------------------------------------------------------------
+   22.8 Group labels — a labelled divider rather than loose text
+   -------------------------------------------------------------------------- */
+.group-label {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+.group-label::after {
+  content: "";
+  flex: 1 1 auto;
+  height: 1px;
+  background: linear-gradient(90deg, var(--line), transparent);
+}
+
+/* --------------------------------------------------------------------------
+   22.9 Skills panels
+   -------------------------------------------------------------------------- */
+.stack-grid { gap: 16px; }
+.stack-panel { padding: 20px 20px 18px; }
+.stack-head {
+  padding-bottom: 12px;
+  margin-bottom: 14px;
+  border-bottom: 1px solid var(--line);
+}
+
+/* --------------------------------------------------------------------------
+   22.10 Experience timeline
+   -------------------------------------------------------------------------- */
+.timeline::before { background: linear-gradient(180deg, var(--accent), var(--line-strong) 18%, var(--line) 100%); }
+
+.tl-card {
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+  padding: 2px 0;
+  transition: border-color 0.22s var(--ease), background 0.22s var(--ease),
+              box-shadow 0.22s var(--ease), padding 0.22s var(--ease);
+}
+.tl-item:hover .tl-card {
+  border-color: var(--line);
+  background: var(--bg-card);
+  box-shadow: var(--edge-light), var(--shadow-md);
+  padding: 18px 22px;
+}
+.tl-marker { box-shadow: 0 0 0 4px var(--bg); }
+.tl-item-current .tl-marker { box-shadow: 0 0 0 4px var(--bg), 0 0 0 7px var(--accent-soft); }
+
+/* --------------------------------------------------------------------------
+   22.11 Contact
+   -------------------------------------------------------------------------- */
+.contact-links li { transition: padding-left 0.2s var(--ease); }
+.contact-links li:hover { padding-left: 10px; }
+.contact-ico { box-shadow: var(--edge-light); transition: border-color 0.2s var(--ease), background 0.2s var(--ease); }
+.contact-links li:hover .contact-ico { border-color: var(--accent); background: var(--accent-soft); }
+.contact-links a { transition: color 0.18s var(--ease); }
+
+/* --------------------------------------------------------------------------
+   22.12 Dialogs — a touch more elevation
+   -------------------------------------------------------------------------- */
+.case-dialog { box-shadow: var(--shadow-lg); border-radius: 10px; }
+.dlg-close { box-shadow: var(--edge-light); }
+
+/* --------------------------------------------------------------------------
+   22.13 Back-to-top
+   -------------------------------------------------------------------------- */
+.to-top {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 90;
+  width: 42px;
+  height: 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--line-strong);
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--bg-card) 86%, transparent);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: var(--text-2);
+  cursor: pointer;
+  box-shadow: var(--edge-light), var(--shadow-md);
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.25s var(--ease), transform 0.25s var(--ease),
+              color 0.2s var(--ease), border-color 0.2s var(--ease), background 0.2s var(--ease);
+}
+.to-top[hidden] { display: none; }
+.to-top.is-visible { opacity: 1; transform: none; }
+.to-top:hover { color: var(--accent); border-color: var(--accent); background: var(--accent-soft); transform: translateY(-2px); }
+.to-top svg { width: 17px; height: 17px; }
+
+/* --------------------------------------------------------------------------
+   22.14 Footer
+   -------------------------------------------------------------------------- */
+.site-footer { padding: 32px 0; background: var(--bg-sunken); border-top-color: var(--line); }
+.footer-top { transition: color 0.18s var(--ease); }
+
+/* --------------------------------------------------------------------------
+   22.15 Reveal — slightly longer travel, snappier curve
+   -------------------------------------------------------------------------- */
+.js .section .container > * { transform: translateY(20px); transition-duration: 0.6s; }
+.js .section .container > :nth-child(5) { transition-delay: 280ms; }
+
+/* --------------------------------------------------------------------------
+   22.16 Responsive
+   -------------------------------------------------------------------------- */
+@media (max-width: 900px) {
+  .hero-axis { display: flex; flex-wrap: wrap; margin-top: 48px; }
+}
+@media (max-width: 720px) {
+  .section { padding: 72px 0; }
+  .hero { padding-top: 76px; }
+  .to-top { right: 16px; bottom: 16px; width: 40px; height: 40px; }
+  .tl-item:hover .tl-card { padding: 14px 16px; }
+}
+@media (max-width: 480px) {
+  .hero-axis { gap: 8px 18px; font-size: 11px; }
+}
+
+/* --------------------------------------------------------------------------
+   22.17 Reduced motion — no lifts, no sliding, no progress animation
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .stack-panel:hover,
+  .case-compact:hover,
+  .edu-panel:hover,
+  .cert-item:hover,
+  .btn-primary:hover,
+  .btn-ghost:hover,
+  .to-top:hover,
+  .tag-list li:hover,
+  .tl-tags li:hover,
+  .brand:hover .brand-mark { transform: none; }
+  .contact-links li:hover { padding-left: 4px; }
+  .tl-item:hover .tl-card { padding: 2px 0; }
+  .scroll-progress-bar { transition: none; }
+  .to-top { transition: opacity 0.001s; transform: none; }
+}
+
+/* --------------------------------------------------------------------------
+   22.18 Late corrections
+   -------------------------------------------------------------------------- */
+
+/* A horizontally scrollable pipeline fades at its right edge instead of being
+   cut off mid-step. The mask only shows when content actually reaches the
+   edge, so short pipelines are unaffected. */
+@media (min-width: 721px) {
+  .pipeline-wide,
+  .pipeline-research {
+    -webkit-mask-image: linear-gradient(90deg, #000 0, #000 calc(100% - 56px), transparent 100%);
+    mask-image: linear-gradient(90deg, #000 0, #000 calc(100% - 56px), transparent 100%);
+    padding-right: 8px;
+  }
+}
+
+/* A field that carries a long explanation runs the full card width */
+.case-field-wide { grid-column: 1 / -1; }
+
+/* Pipelines scroll on touch without a visible bar */
+.pipeline { scrollbar-width: none; }
+.pipeline::-webkit-scrollbar { height: 0; }
+
+/* --------------------------------------------------------------------------
+   23. Print-only content
+   Blocks that exist solely for the generated PDF (cover page, closing line).
+   css/print.css reveals them; on screen they are never rendered.
+   -------------------------------------------------------------------------- */
+.print-only { display: none; }
+
+/* Resume banner: when the portfolio PDF was last generated from this page */
+.resume-meta {
+  margin-top: 14px;
+  font-size: 11.5px;
+  letter-spacing: 0.06em;
+  color: var(--text-3);
+}
+
+/* ==========================================================================
+   24. Responsive system
+   The layout used fixed column counts switched at a few breakpoints. This
+   section replaces the brittle parts with intrinsically fluid grids
+   (auto-fit + minmax), a fluid type scale and a fluid gutter, so the page
+   adapts continuously between 320px and ultrawide instead of jumping at
+   three fixed widths.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   24.1 Fluid shell
+   -------------------------------------------------------------------------- */
+.container {
+  max-width: var(--max-w);
+  padding-inline: var(--gutter);
+}
+.hero-axis { padding-inline: var(--gutter); }
+.hero-axis::before { left: var(--gutter); right: var(--gutter); }
+.header-inner { padding-inline: var(--gutter); }
+
+.section { padding-block: clamp(56px, 8vw, 104px); }
+.hero { padding-block: clamp(64px, 9vw, 112px) clamp(40px, 5vw, 64px); }
+
+/* Long technical strings (package names, URLs) must never force a scrollbar */
+body { overflow-wrap: break-word; }
+.tag-list li,
+.tl-tags li,
+.case-badges span,
+.repo-name,
+.gh-handle,
+.contact-links a,
+.dlg-stack dd,
+.case-field dd { overflow-wrap: anywhere; }
+
+/* --------------------------------------------------------------------------
+   24.2 Fluid type scale
+   Every size interpolates with the viewport, so there is no step where text
+   is suddenly too large for the column it sits in.
+   -------------------------------------------------------------------------- */
+body            { font-size: clamp(15.5px, 0.35vw + 14.8px, 16.5px); }
+.hero-title     { font-size: clamp(38px, 7.5vw, 76px); }
+.hero-role      { font-size: clamp(12.5px, 1.3vw, 15px); }
+.hero-blurb     { font-size: clamp(15.5px, 1.1vw, 17.5px); }
+.section-title  { font-size: clamp(23px, 3.2vw, 34px); }
+.case-title     { font-size: clamp(19px, 2.6vw, 28px); }
+.case-compact .case-title { font-size: clamp(16.5px, 1.6vw, 18px); }
+.contact-title  { font-size: clamp(27px, 5.2vw, 54px); }
+.research-title { font-size: clamp(18px, 2.8vw, 27px); }
+.resume-title   { font-size: clamp(21px, 3.2vw, 32px); }
+.tl-role        { font-size: clamp(17px, 1.8vw, 20px); }
+.edu-degree     { font-size: clamp(16.5px, 1.7vw, 20px); }
+.dlg-title      { font-size: clamp(16.5px, 2.4vw, 23px); }
+
+/* --------------------------------------------------------------------------
+   24.3 Intrinsically fluid grids
+   auto-fit + minmax reflows by available space, not by guessed breakpoints.
+   -------------------------------------------------------------------------- */
+.stack-grid {
+  grid-template-columns: repeat(auto-fit, minmax(min(236px, 100%), 1fr));
+  align-items: stretch;
+}
+.case-grid {
+  grid-template-columns: repeat(auto-fit, minmax(min(290px, 100%), 1fr));
+}
+.case-block {
+  grid-template-columns: repeat(auto-fit, minmax(min(270px, 100%), 1fr));
+}
+.dlg-list-two {
+  grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr));
+}
+
+/* The "other technical areas" panel only spans two columns when at least two
+   exist, so it can never create a phantom column on a narrow screen. */
+.stack-panel-wide { grid-column: auto; }
+@media (min-width: 760px) {
+  .stack-panel-wide { grid-column: span 2; }
+}
+
+/* --------------------------------------------------------------------------
+   24.4 Hero
+   -------------------------------------------------------------------------- */
+.hero-grid {
+  grid-template-columns: minmax(0, 1.45fr) minmax(300px, 1fr);
+  gap: clamp(28px, 4vw, 52px);
+}
+@media (max-width: 960px) {
+  .hero-grid { grid-template-columns: 1fr; }
+  .hero-diagram { max-width: 460px; }
+}
+
+.about-grid {
+  grid-template-columns: minmax(0, 1.6fr) minmax(260px, 1fr);
+  gap: clamp(28px, 4vw, 48px);
+}
+.research-grid {
+  grid-template-columns: minmax(0, 1.5fr) minmax(250px, 1fr);
+  gap: clamp(26px, 3.5vw, 40px);
+}
+@media (max-width: 900px) {
+  .about-grid, .research-grid, .gh-grid { grid-template-columns: 1fr; }
+}
+
+/* --------------------------------------------------------------------------
+   24.5 Touch targets
+   Anything tapped on a touch screen gets at least ~44px of height.
+   -------------------------------------------------------------------------- */
+@media (pointer: coarse) {
+  .mobile-nav-list a { padding-block: 14px; }
+  .nav-list a { padding-block: 11px; }
+  .btn { padding-block: 12px; }
+  .btn-sm { padding-block: 10px; }
+  .theme-toggle, .nav-toggle { width: 44px; height: 44px; }
+  .to-top { width: 48px; height: 48px; }
+  .contact-links li { padding-block: 16px; }
+  .dlg-close { width: 40px; height: 40px; }
+}
+
+/* --------------------------------------------------------------------------
+   24.6 Breakpoint tuning
+   -------------------------------------------------------------------------- */
+
+/* Wide desktops: let the content breathe rather than stretch */
+@media (min-width: 1440px) {
+  .hero-blurb { max-width: 620px; }
+  .case-subtitle { max-width: 780px; }
+}
+
+/* Small tablets and large phones */
+@media (max-width: 640px) {
+  .section-head { margin-bottom: 28px; gap: 8px 14px; }
+  .case { padding: 20px 18px; }
+  .case-arch { padding: 14px 15px; }
+  .about-panel, .research-aside { padding: 18px 18px; }
+  .edu-panel { padding: 20px 20px; }
+  .hack-panel { padding: 20px 20px; }
+  .resume-banner { padding: 24px 20px; }
+  .resume-banner::after { display: none; }
+  .timeline { padding-left: 26px; }
+  .tl-marker { left: calc(-26px + 6px); }
+}
+
+/* Phones */
+@media (max-width: 480px) {
+  .hero-status { font-size: 11.5px; padding: 5px 10px; }
+  .hero-actions { gap: 10px; }
+  .hero-actions .btn { flex: 1 1 100%; justify-content: center; }
+  .case-badges span { font-size: 10px; padding: 3px 9px; }
+  .case-id { font-size: 11px; }
+  .section-index::before { width: 14px; }
+  .brand-text { font-size: 14px; }
+  .dlg-head { gap: 12px; }
+  .dlg-stack > div { grid-template-columns: 1fr; gap: 3px; }
+}
+
+/* Very small phones (iPhone SE and similar) */
+@media (max-width: 380px) {
+  :root { --gutter: 14px; }
+  .brand-text { display: none; }
+  .hero-title { font-size: 34px; }
+  .tag-list { gap: 6px; }
+  .tag-list li { font-size: 11.5px; padding: 4px 8px; }
+  .case { padding: 16px 14px; }
+  .pipe-step { font-size: 11px; }
+  .contact-links li { gap: 10px; }
+}
+
+/* Short landscape phones: stop the hero eating the whole screen */
+@media (max-height: 520px) and (orientation: landscape) {
+  .hero { padding-block: 48px 32px; }
+  .hero-axis { display: none; }
+}
+
+/* --------------------------------------------------------------------------
+   24.7 Dialogs on small screens — full-height sheet rather than a tiny box
+   -------------------------------------------------------------------------- */
+@media (max-width: 640px) {
+  .case-dialog {
+    width: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    height: 100%;
+    margin: 0;
+    border: none;
+    border-radius: 0;
+  }
+  .dlg-inner { height: 100%; }
+  .dlg-head { position: sticky; top: 0; z-index: 2; }
+}
+
+/* --------------------------------------------------------------------------
+   24.8 Print safety
+   The screen gutter and fluid sizes must not leak into the PDF.
+   -------------------------------------------------------------------------- */
+@media print {
+  .container, .header-inner, .hero-axis { padding-inline: 0; }
+  .section { padding-block: 0 9mm; }
+}
+
+/* --------------------------------------------------------------------------
+   24.9 Group labels on narrow screens
+   The trailing rule squeezes the label into two ragged lines on a phone, so
+   let the text own the row and drop the rule below 560px.
+   -------------------------------------------------------------------------- */
+@media (max-width: 560px) {
+  .group-label { gap: 10px; flex-wrap: wrap; }
+  .group-label::after { display: none; }
 }

@@ -1,0 +1,380 @@
+/* ==========================================================================
+   NISHIT KUMAR — Engineering Portfolio
+   PRINT STYLESHEET
+
+   This file turns index.html into the downloadable portfolio PDF.
+
+   The site and the PDF therefore share ONE source of content: edit
+   index.html and the PDF picks the change up the next time you run
+   scripts/build-pdf.ps1. There is no second copy to keep in sync.
+
+   Loaded with media="print", so it never affects the screen design.
+   ========================================================================== */
+
+@page {
+  size: A4;
+  margin: 14mm 13mm 16mm;
+}
+
+/* --------------------------------------------------------------------------
+   1. Paper palette
+   The site is token-driven, so printing is mostly a matter of re-pointing the
+   tokens at ink-on-paper values. Listed for every theme state so the PDF looks
+   the same whether the visitor had dark or light mode active.
+   -------------------------------------------------------------------------- */
+@media print {
+  :root,
+  :root[data-theme="dark"],
+  :root[data-theme="light"] {
+    --bg:            #ffffff;
+    --bg-soft:       #ffffff;
+    --bg-card:       #ffffff;
+    --bg-card-hover: #ffffff;
+    --bg-sunken:     #f4f7fb;
+
+    --line:          #dbe2ec;
+    --line-strong:   #b6c2d2;
+    --line-accent:   #1d4ed8;
+
+    --text:          #0f1b2d;
+    --text-2:        #32405a;
+    --text-3:        #5d6b80;
+
+    --accent:        #1d4ed8;
+    --accent-ink:    #ffffff;
+    --accent-soft:   #eef2fd;
+
+    --shadow-sm: none;
+    --shadow-md: none;
+    --shadow-lg: none;
+    --edge-light: none;
+    --accent-glow: none;
+
+    color-scheme: light;
+  }
+
+  html, body {
+    background: #ffffff !important;
+    color: var(--text);
+    font-size: 10.2pt;
+    line-height: 1.55;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* Every card keeps its outline but loses screen depth */
+  *, *::before, *::after {
+    box-shadow: none !important;
+    text-shadow: none !important;
+    animation: none !important;
+    transition: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  /* --------------------------------------------------------------------------
+     2. Screen-only furniture
+     -------------------------------------------------------------------------- */
+  .site-header,
+  .mobile-menu,
+  .nav-toggle,
+  .theme-toggle,
+  .skip-link,
+  .scroll-progress,
+  .to-top,
+  .hero,
+  .site-footer,
+  .case-actions,
+  .dlg-close,
+  .resume-actions,
+  .hero-diagram,
+  .btn {
+    display: none !important;
+  }
+
+  /* --------------------------------------------------------------------------
+     3. The scroll-reveal must not hide content on paper
+     The IntersectionObserver only reveals a section once it has been on screen,
+     so an un-scrolled page would print mostly blank without this.
+     -------------------------------------------------------------------------- */
+  .js .section .container > *,
+  .section .container > * {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  /* --------------------------------------------------------------------------
+     4. Cover page
+     -------------------------------------------------------------------------- */
+  .print-only { display: block !important; }
+
+  .print-cover {
+    break-after: page;
+    padding-top: 34mm;
+    border-top: 3px solid var(--accent);
+  }
+  .print-cover .pc-kicker {
+    font-family: var(--mono);
+    font-size: 9pt;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--text-3);
+    margin-bottom: 14mm;
+  }
+  .print-cover .pc-name {
+    font-size: 40pt;
+    font-weight: 700;
+    letter-spacing: -0.035em;
+    line-height: 1;
+  }
+  .print-cover .pc-role {
+    font-family: var(--mono);
+    font-size: 11.5pt;
+    color: var(--text-2);
+    margin-top: 7mm;
+    letter-spacing: 0.01em;
+  }
+  .print-cover .pc-org {
+    font-family: var(--mono);
+    font-size: 9.5pt;
+    color: var(--text-3);
+    margin-top: 2.5mm;
+  }
+  .print-cover .pc-summary {
+    margin-top: 12mm;
+    max-width: 125mm;
+    font-size: 11pt;
+    line-height: 1.7;
+    color: var(--text-2);
+  }
+  .print-cover .pc-contact {
+    margin-top: 14mm;
+    padding-top: 5mm;
+    border-top: 1px solid var(--line);
+    font-family: var(--mono);
+    font-size: 9pt;
+    color: var(--text-2);
+    display: grid;
+    gap: 2.5mm;
+  }
+  .print-cover .pc-contact span { color: var(--text-3); }
+  .print-cover .pc-meta {
+    margin-top: 10mm;
+    font-family: var(--mono);
+    font-size: 8pt;
+    letter-spacing: 0.12em;
+    color: var(--text-3);
+  }
+
+  /* A running label at the top of every content page */
+  .print-runner {
+    display: block !important;
+    position: running(runner);
+  }
+
+  /* --------------------------------------------------------------------------
+     5. Flow and pagination
+     -------------------------------------------------------------------------- */
+  main, .container { max-width: none; width: auto; padding: 0; margin: 0; }
+
+  .section {
+    padding: 0 0 9mm;
+    margin-top: 9mm;
+    border-top: none;
+    break-inside: auto;
+  }
+  #about { margin-top: 0; }
+
+  /* Each major area starts on a fresh page */
+  #projects,
+  #experience,
+  #research,
+  #education { break-before: page; }
+
+  .section-head {
+    margin-bottom: 6mm;
+    padding-bottom: 2.5mm;
+    border-bottom: 1.5px solid var(--accent);
+    break-after: avoid;
+  }
+  .section-title { font-size: 17pt; }
+  .section-index { font-size: 8pt; }
+  .section-intro { font-size: 9.5pt; }
+
+  h1, h2, h3, h4 { break-after: avoid; }
+
+  .case,
+  .stack-panel,
+  .edu-panel,
+  .cert-item,
+  .hack-panel,
+  .research-card,
+  .tl-item,
+  .case-dialog,
+  .dlg-sec { break-inside: avoid; }
+
+  /* Long cards may split, but never leave a heading stranded */
+  .case-capstone, .case-feature { break-inside: auto; }
+  .case-head { break-after: avoid; break-inside: avoid; }
+
+  /* --------------------------------------------------------------------------
+     6. Components on paper
+     -------------------------------------------------------------------------- */
+  .case {
+    padding: 6mm 6.5mm;
+    margin-top: 5mm;
+    border: 1px solid var(--line-strong);
+    border-radius: 2mm;
+  }
+  .case-feature::before,
+  .case-capstone::after { display: none; }
+  .case-capstone { border-left: 2.5pt solid var(--accent); }
+
+  .case-title { font-size: 13.5pt; }
+  .case-subtitle { font-size: 9.8pt; max-width: none; }
+  .case-id { font-size: 7.5pt; }
+  .case-badges span { font-size: 6.8pt; padding: 1px 6px; border-color: var(--line-strong); }
+
+  .case-block { gap: 0 8mm; margin-top: 4mm; }
+  .case-field { padding: 3mm 0; }
+  .case-field dt { font-size: 7.5pt; }
+  .case-field dd { font-size: 9.2pt; line-height: 1.6; }
+
+  /* Pipelines wrap instead of scrolling off the page edge */
+  .pipeline {
+    flex-wrap: wrap;
+    overflow: visible;
+    gap: 4px;
+    -webkit-mask-image: none !important;
+    mask-image: none !important;
+  }
+  .pipe-step { font-size: 7.6pt; padding: 3px 6px; }
+  .pipe-sub { font-size: 6.4pt; }
+  .pipe-arrow { font-size: 8pt; }
+  .case-arch { padding: 4mm 4.5mm; margin-top: 4mm; background: var(--bg-sunken); }
+
+  /* Skills */
+  .stack-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 4mm; }
+  .stack-panel-wide { grid-column: span 2; }
+  .stack-panel { padding: 4mm 4.5mm; border: 1px solid var(--line); }
+  .stack-head { font-size: 7.5pt; margin-bottom: 3mm; padding-bottom: 2mm; }
+  .stack-ico { width: 11px; height: 11px; }
+  .tag-list { gap: 4px; }
+  .tag-list li { font-size: 7.6pt; padding: 2px 7px; border-color: var(--line-strong); }
+
+  /* About */
+  .about-grid { display: grid; grid-template-columns: 1.65fr 1fr; gap: 8mm; }
+  .about-copy { font-size: 10pt; }
+  .about-panel { padding: 5mm; }
+  .focus-list li { padding: 2mm 0; font-size: 8.4pt; }
+
+  /* Experience */
+  .timeline { padding-left: 8mm; }
+  .tl-item { padding-bottom: 7mm; }
+  .tl-card { padding: 0 !important; border: none !important; background: none !important; }
+  .tl-role { font-size: 12.5pt; }
+  .tl-desc { font-size: 9.6pt; max-width: none; }
+  .tl-tags li { font-size: 7.6pt; }
+  .tl-now { font-size: 6.8pt; }
+
+  /* Research, education, certifications, hackathons */
+  .research-card, .hack-panel, .edu-panel, .cert-item { padding: 5mm 5.5mm; }
+  .research-grid { gap: 8mm; }
+  .research-title { font-size: 13pt; }
+  .edu-panel { margin-bottom: 4mm; }
+  .hack-panel, .cert-item { max-width: none; }
+
+  /* --------------------------------------------------------------------------
+     7. Project detail dialogs become real pages
+     This is what makes the PDF complete: everything behind "View Details" on
+     the site is printed as a proper appendix instead of being lost.
+     -------------------------------------------------------------------------- */
+  .case-dialogs {
+    display: block !important;
+    break-before: page;
+  }
+  .case-dialogs::before {
+    content: "Project Detail — Full Case Studies";
+    display: block;
+    font-family: var(--mono);
+    font-size: 8pt;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-3);
+    padding-bottom: 2.5mm;
+    margin-bottom: 6mm;
+    border-bottom: 1.5px solid var(--accent);
+  }
+
+  .case-dialog {
+    display: block !important;
+    position: static !important;
+    width: auto !important;
+    max-width: none !important;
+    max-height: none !important;
+    height: auto !important;
+    overflow: visible !important;
+    border: 1px solid var(--line-strong);
+    border-radius: 2mm;
+    margin-bottom: 6mm;
+    page-break-inside: auto;
+  }
+  .case-dialog + .case-dialog { break-before: page; }
+  .case-dialog::backdrop { display: none; }
+
+  .dlg-inner { display: block; max-height: none; }
+  .dlg-head {
+    padding: 5mm 5.5mm 4mm;
+    background: var(--bg-sunken);
+    border-bottom: 1px solid var(--line);
+    break-after: avoid;
+  }
+  .dlg-head::after { display: none; }
+  .dlg-eyebrow { font-size: 7.5pt; }
+  .dlg-title { font-size: 13pt; }
+  .dlg-body { padding: 0 5.5mm 5mm; overflow: visible !important; }
+  .dlg-body p { font-size: 9.3pt; line-height: 1.65; }
+  .dlg-sec { padding-top: 4.5mm; }
+  .dlg-h { font-size: 7.5pt; }
+  .dlg-list li { font-size: 9pt; }
+  .dlg-list-two { grid-template-columns: 1fr 1fr; gap: 2mm 7mm; }
+  .dlg-stack > div { padding: 2.5mm 0; grid-template-columns: 26mm 1fr; }
+  .dlg-stack dt { font-size: 7.5pt; }
+  .dlg-stack dd { font-size: 9pt; }
+  .dlg-note { padding: 3mm 4mm; font-size: 8.8pt; background: var(--bg-sunken); }
+  .dlg-body code { font-size: 8pt; }
+
+  /* --------------------------------------------------------------------------
+     8. Links — a PDF reader cannot hover, so spell the destination out
+     -------------------------------------------------------------------------- */
+  a { color: var(--text); text-decoration: none; }
+
+  .contact-links a[href^="http"]::after,
+  .contact-links a[href^="mailto"]::after { content: ""; }
+
+  .contact-title { font-size: 20pt; }
+  .contact-sub { font-size: 10pt; }
+  .contact-links li { padding: 2.5mm 0; font-size: 9.6pt; }
+  .contact-ico { width: 7mm; height: 7mm; font-size: 8pt; }
+  #contact { break-inside: avoid; }
+
+  /* Resume section: the PDF cannot download itself */
+  #resume { display: none !important; }
+
+  /* --------------------------------------------------------------------------
+     9. Closing block
+     -------------------------------------------------------------------------- */
+  .print-outro {
+    display: block !important;
+    margin-top: 8mm;
+    padding-top: 4mm;
+    border-top: 1px solid var(--line);
+    font-family: var(--mono);
+    font-size: 8pt;
+    letter-spacing: 0.08em;
+    color: var(--text-3);
+    text-align: center;
+    break-inside: avoid;
+  }
+}
