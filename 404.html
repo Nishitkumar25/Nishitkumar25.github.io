@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Page not found | Nishit Kumar</title>
+  <meta name="robots" content="noindex" />
+  <meta name="theme-color" content="#f7f9fc" />
+
+  <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg" />
+  <link rel="alternate icon" href="favicon.ico" sizes="16x16 32x32 48x48" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+
+  <script>
+    (function () {
+      try {
+        document.documentElement.classList.add('js');
+        var stored = localStorage.getItem('nk-theme');
+        var theme = stored || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', theme);
+      } catch (e) {
+        /* Storage unavailable: fall back to the stylesheet's dark default. */
+        document.documentElement.classList.add('js');
+      }
+    })();
+  </script>
+
+  <style>
+    .nf-wrap {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      gap: 10px;
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 48px 24px;
+    }
+    .nf-code {
+      font-family: var(--mono);
+      font-size: clamp(64px, 14vw, 140px);
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: -0.05em;
+      color: var(--accent);
+    }
+    .nf-title { font-size: clamp(24px, 4vw, 36px); letter-spacing: -0.02em; margin-top: 12px; }
+    .nf-text { color: var(--text-2); max-width: 520px; margin-top: 12px; font-size: 16px; line-height: 1.7; }
+    .nf-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+    .nf-links { margin-top: 42px; display: flex; flex-wrap: wrap; gap: 8px 22px; font-size: 13px; }
+    .nf-links a { color: var(--text-3); border-bottom: 1px dashed var(--line-strong); padding-bottom: 1px; }
+    .nf-links a:hover { color: var(--accent); border-color: var(--accent); }
+  </style>
+</head>
+
+<body>
+  <main class="nf-wrap">
+    <p class="mono" style="color: var(--text-3); font-size: 12.5px; letter-spacing: 0.12em;">
+      error <span class="accent">/</span> not_found
+    </p>
+    <p class="nf-code">404</p>
+    <h1 class="nf-title">This page does not exist.</h1>
+    <p class="nf-text">
+      The link may be out of date, or the address mistyped. Everything on this site lives on a single page —
+      head back to the start and use the navigation.
+    </p>
+
+    <div class="nf-actions">
+      <a class="btn btn-primary" href="/">Back to the portfolio</a>
+      <a class="btn btn-ghost" href="/#projects">View Projects</a>
+    </div>
+
+    <nav class="nf-links mono" aria-label="Shortcuts">
+      <a href="/#about">About</a>
+      <a href="/#stack">Skills</a>
+      <a href="/#projects">Projects</a>
+      <a href="/#experience">Experience</a>
+      <a href="/#resume">Resume</a>
+      <a href="/#contact">Contact</a>
+    </nav>
+  </main>
+</body>
+</html>

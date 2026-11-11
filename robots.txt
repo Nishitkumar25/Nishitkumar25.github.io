@@ -1,0 +1,5 @@
+# https://nishitkumar25.github.io/
+User-agent: *
+Allow: /
+
+Sitemap: https://nishitkumar25.github.io/sitemap.xml

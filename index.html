@@ -5,28 +5,29 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <!-- Primary meta -->
-  <title>Nishit Kumar | Associate Technical Consultant | Software • Data • AI</title>
-  <meta name="description" content="Nishit Kumar — Associate Technical Consultant (Perficient) and Computer Science &amp; Engineering graduate. Software engineering, full-stack development, data science, machine learning, generative AI, OCR applications and research." />
+  <title>Nishit Kumar | Associate Technical Consultant | Full Stack • Data • AI</title>
+  <meta name="description" content="Nishit Kumar — Associate Technical Consultant at Perficient (Product Development, Custom Delivery) and Computer Science &amp; Engineering graduate. Full stack engineering with Java Spring Boot, React, Angular and Python; REST API development, database management, data science, machine learning and generative AI." />
   <meta name="author" content="Nishit Kumar" />
-  <meta name="theme-color" content="#0A0B0E" />
+  <meta name="theme-color" content="#f7f9fc" />
 
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Nishit Kumar | Associate Technical Consultant | Software • Data • AI" />
-  <meta property="og:description" content="Professional engineering portfolio — software systems, data, machine learning and AI. Built, analyzed, researched and explained." />
-  <meta property="og:url" content="https://[SITE URL]" />
+  <meta property="og:title" content="Nishit Kumar | Associate Technical Consultant | Full Stack • Data • AI" />
+  <meta property="og:description" content="Professional engineering portfolio — full stack platforms, enterprise onboarding systems, wealth management dashboards, data and AI. Built, integrated, tested and explained." />
+  <meta property="og:url" content="https://nishitkumar25.github.io/" />
   <meta property="og:image" content="assets/images/og-image.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
 
   <!-- Twitter card -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Nishit Kumar | Associate Technical Consultant | Software • Data • AI" />
-  <meta name="twitter:description" content="Professional engineering portfolio — software systems, data, machine learning and AI." />
+  <meta name="twitter:title" content="Nishit Kumar | Associate Technical Consultant | Full Stack • Data • AI" />
+  <meta name="twitter:description" content="Professional engineering portfolio — full stack platforms, enterprise onboarding systems, wealth management dashboards, data and AI." />
   <meta name="twitter:image" content="assets/images/og-image.png" />
 
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg" />
+  <link rel="alternate icon" href="favicon.ico" sizes="16x16 32x32 48x48" />
   <link rel="apple-touch-icon" href="assets/images/apple-touch-icon.png" />
 
   <!-- Fonts -->
@@ -36,16 +37,22 @@
 
   <!-- Styles -->
   <link rel="stylesheet" href="css/style.css" />
+  <!-- Paginated layout for the downloadable portfolio PDF. The PDF is
+       generated from this page (scripts/build-pdf.ps1), so the site and the
+       document can never fall out of sync. -->
+  <link rel="stylesheet" href="css/print.css" media="print" />
   <script>
     (function () {
       try {
         document.documentElement.classList.add('js');
         var stored = localStorage.getItem('nk-theme');
-        var theme = stored || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+        var theme = stored || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
         document.documentElement.setAttribute('data-theme', theme);
         var meta = document.querySelector('meta[name="theme-color"]');
-        if (meta) meta.setAttribute('content', theme === 'light' ? '#f6f8f9' : '#0A0B0E');
+        if (meta) meta.setAttribute('content', theme === 'dark' ? '#0c1017' : '#f7f9fc');
       } catch (e) {
+        /* localStorage or matchMedia unavailable (private mode, old browser):
+           fall back to the stylesheet's default dark theme. Nothing to handle. */
         document.documentElement.classList.add('js');
       }
     })();
@@ -54,6 +61,9 @@
 
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- Reading progress indicator -->
+  <div class="scroll-progress" aria-hidden="true"><span class="scroll-progress-bar"></span></div>
 
   <!-- ============ NAVIGATION ============ -->
   <header class="site-header" id="top">
@@ -66,7 +76,7 @@
       <nav class="site-nav" aria-label="Primary">
         <ul class="nav-list">
           <li><a href="#about">About</a></li>
-          <li><a href="#stack">Stack</a></li>
+          <li><a href="#stack">Skills</a></li>
           <li><a href="#projects">Projects</a></li>
           <li><a href="#experience">Experience</a></li>
           <li><a href="#research">Research</a></li>
@@ -74,7 +84,7 @@
         </ul>
       </nav>
 
-      <a class="btn btn-primary btn-sm nav-resume" href="assets/documents/resume.pdf?v=20260921">
+      <a class="btn btn-primary btn-sm nav-resume" href="assets/documents/resume.pdf?v=20261111" target="_blank" rel="noopener">
         <span aria-hidden="true">↓</span> Resume
       </a>
 
@@ -94,13 +104,14 @@
       <nav aria-label="Mobile">
         <ul class="mobile-nav-list">
           <li><a href="#about">About</a></li>
-          <li><a href="#stack">Stack</a></li>
+          <li><a href="#stack">Skills</a></li>
           <li><a href="#projects">Projects</a></li>
           <li><a href="#experience">Experience</a></li>
           <li><a href="#research">Research</a></li>
           <li><a href="#education">Education</a></li>
+          <li><a href="#certifications">Certifications</a></li>
           <li><a href="#contact">Contact</a></li>
-          <li><a class="btn btn-primary btn-sm" href="assets/documents/resume.pdf?v=20260921">↓ Resume</a></li>
+          <li><a class="btn btn-primary btn-sm" href="assets/documents/resume.pdf?v=20261111" target="_blank" rel="noopener">↓ Resume</a></li>
         </ul>
       </nav>
     </div>
@@ -108,25 +119,52 @@
 
   <main id="main">
 
+    <!-- ============ PRINT COVER ============
+         Hidden on screen (.print-only), shown only in the generated PDF.
+         The hero is hidden in print and this takes its place. -->
+    <section class="print-only print-cover" aria-hidden="true">
+      <p class="pc-kicker">Engineering Portfolio</p>
+      <p class="pc-name">Nishit Kumar</p>
+      <p class="pc-role">Associate Technical Consultant · Full Stack · Data · AI</p>
+      <p class="pc-org">Perficient Inc. — Product Development (Custom Delivery) · Bengaluru, India</p>
+      <p class="pc-summary">
+        Computer Science &amp; Engineering graduate and software developer, currently an Associate Technical
+        Consultant at Perficient. Full-stack applications built end to end — React and Angular front ends,
+        Java Spring Boot and Python services, REST APIs and relational databases — with applied work in
+        data science, machine learning and generative AI.
+      </p>
+      <div class="pc-contact">
+        <p><span>email</span> &nbsp;Nishit.kumar@perficient.com</p>
+        <p><span>linkedin</span> &nbsp;linkedin.com/in/nishit-kumar-77a3aa354</p>
+        <p><span>github</span> &nbsp;github.com/Nishitkumar25</p>
+        <p><span>website</span> &nbsp;nishitkumar25.github.io</p>
+      </div>
+      <p class="pc-meta">generated from nishitkumar25.github.io — content identical to the live site</p>
+    </section>
+
     <!-- ============ 01 · HERO ============ -->
     <section class="hero" aria-labelledby="hero-title">
       <div class="container hero-grid">
 
         <div class="hero-copy">
-          <p class="eyebrow mono" aria-hidden="true">Engineering Portfolio <span class="accent">nav</span></p>
+          <p class="eyebrow mono" aria-hidden="true">Engineering Portfolio <span class="accent">/</span> software · data · ai</p>
 
-          <p class="hero-status mono"><span class="status-dot" aria-hidden="true"></span> current: Associate Technical Consultant · Perficient</p>
+          <p class="hero-status mono"><span class="status-dot" aria-hidden="true"></span> current: Associate Technical Consultant · Perficient Inc.</p>
 
           <h1 class="hero-title" id="hero-title">Nishit Kumar</h1>
-          <p class="hero-role mono">Associate Technical Consultant<span class="accent"></span> Software · Data · AI</p>
+          <p class="hero-role mono">Associate Technical Consultant <span class="accent">·</span> Full Stack · Data · AI</p>
+          <p class="hero-org mono">Perficient Inc. — Product Development (Custom Delivery) · Bengaluru, India</p>
 
           <p class="hero-blurb">
-            Building practical software systems by combining software engineering, data, machine learning and AI
-            from OCR-driven product analysis to adaptive speech research.
+            Computer Science &amp; Engineering graduate and software developer, currently an Associate Technical
+            Consultant at Perficient. I build full-stack applications end to end — React and Angular front ends,
+            Java Spring Boot and Python services, REST APIs and relational databases — with applied work in
+            data science, machine learning and generative AI.
           </p>
 
           <div class="hero-actions">
             <a class="btn btn-primary" href="#projects">View Projects</a>
+            <a class="btn btn-ghost" href="assets/documents/resume.pdf?v=20261111" target="_blank" rel="noopener">Download Resume <span aria-hidden="true">↓</span></a>
           </div>
         </div>
 
@@ -135,11 +173,11 @@
           <div class="diagram-frame">
             <p class="diagram-title mono" aria-hidden="true">System_flow <span class="accent">·</span> nishit_kumar</p>
             <ol class="flow-stack">
-              <li><span class="node mono">graduate</span><span class="edge mono">▾</span></li>
-              <li><span class="node mono">software · data · ai</span><span class="edge mono">▾</span></li>
-              <li><span class="node mono">engineering systems</span><span class="edge mono">▾</span></li>
-              <li><span class="node mono">projects</span><span class="edge mono">▾</span></li>
-              <li><span class="node node-accent mono">solutions</span></li>
+              <li><span class="node mono">cse graduate</span><span class="edge mono">▾</span></li>
+              <li><span class="node mono">perficient · atc</span><span class="edge mono">▾</span></li>
+              <li><span class="node mono">full-stack engineering</span><span class="edge mono">▾</span></li>
+              <li><span class="node mono">capstone platforms</span><span class="edge mono">▾</span></li>
+              <li><span class="node node-accent mono">working systems</span></li>
             </ol>
           </div>
         </aside>
@@ -147,7 +185,11 @@
       </div>
 
       <div class="hero-axis" aria-hidden="true">
-        <span class="mono">discipline</span><span class="mono">focus</span><span class="mono">output</span><span class="mono">evidence</span><span class="mono">impact</span>
+        <span class="mono">full stack development</span>
+        <span class="mono">java · spring boot</span>
+        <span class="mono">react · angular</span>
+        <span class="mono">python · machine learning</span>
+        <span class="mono">rest apis · postgresql</span>
       </div>
     </section>
 
@@ -163,35 +205,38 @@
         <div class="about-grid">
           <div class="about-copy">
             <p>
-              Nishit Kumar is a Computer Science &amp; Engineering graduate (Amrita Vishwa Vidyapeetham, Bengaluru)
-              currently working as an Associate Technical Consultant at Perficient. His work spans the full software
-              lifecycle planning, architecture, backend logic, and frontend delivery with applied experience in
-              data science, machine learning, and generative AI.
+              I am a Computer Science &amp; Engineering graduate from Amrita Vishwa Vidyapeetham, Bengaluru, working as an
+              <strong>Associate Technical Consultant at Perficient Inc.</strong> in the Product Development
+              (Custom Delivery) business area. I work in a professional technology environment and am building practical
+              software engineering experience across the full delivery cycle.
             </p>
             <p>
-              Across internships, research, and hackathons he has built full-stack platforms (Angular, Node.js, MongoDB),
-              an OCR-based AI application that reads packaged-food ingredient lists, and generative AI prototypes with
-              speech input. His final-year research focuses on an adaptive, emotion-aware speech therapy framework for
-              dysarthria combining speech processing, accent-aware analysis, and severity-based therapy design.
+              My engineering background is full stack. On the frontend I work with React and Angular; on the backend with
+              Java and Spring Boot, Node.js and Python. I design and integrate REST APIs, handle authentication and
+              authorization, model and manage relational and document databases, and test and debug what I build rather
+              than assuming it works. Alongside that I work with Python for data science and machine learning, and with
+              AI and generative AI.
             </p>
             <p>
-              He writes documented, testable code, explains technical decisions clearly, and treats every system
-              from a hospital booking platform to a log-driven autoscaler as an engineering problem to be measured,
-              not merely solved.
+              My capstone work covers three substantial applications: a full-stack e-commerce platform, an enterprise
+              account-onboarding system for wealth management, and an advisor-facing portfolio and risk dashboard. My
+              professional interests are software engineering, enterprise application development, data science, AI and
+              full stack development.
             </p>
           </div>
 
           <aside class="about-panel" aria-label="Focus areas">
             <p class="panel-label mono" aria-hidden="true">focus_areas</p>
             <ul class="focus-list mono">
-              <li><span class="focus-id">01</span> software development</li>
-              <li><span class="focus-id">02</span> full-stack systems</li>
-              <li><span class="focus-id">03</span> data science · ml</li>
-              <li><span class="focus-id">04</span> generative ai</li>
-              <li><span class="focus-id">05</span> ocr · intelligent apps</li>
-              <li><span class="focus-id">06</span> research · engineering</li>
+              <li><span class="focus-id">01</span> full stack development</li>
+              <li><span class="focus-id">02</span> frontend · backend engineering</li>
+              <li><span class="focus-id">03</span> rest api development</li>
+              <li><span class="focus-id">04</span> database management</li>
+              <li><span class="focus-id">05</span> data science · ml</li>
+              <li><span class="focus-id">06</span> ai · generative ai</li>
+              <li><span class="focus-id">07</span> testing · debugging</li>
             </ul>
-            <p class="mono about-tagline accent" aria-hidden="true">build · analyze · research · explain</p>
+            <p class="mono about-tagline accent" aria-hidden="true">build · integrate · test · explain</p>
           </aside>
         </div>
       </div>
@@ -202,54 +247,85 @@
       <div class="container">
         <header class="section-head">
           <p class="section-index mono">/02 <span class="accent">/</span></p>
-          <h2 class="section-title" id="stack-title">Technical Stack</h2>
+          <h2 class="section-title" id="stack-title">Technical Skills</h2>
           <span class="section-rule" aria-hidden="true"></span>
+          <p class="section-intro">
+            Technologies I work with across frontend, backend, data and tooling. Grouped by area rather than scored —
+            depth varies by technology and is best judged from the projects below.
+          </p>
         </header>
 
-        <div class="stack-grid" role="list">
-          <div class="stack-panel" role="listitem">
-            <p class="panel-label mono">Programming</p>
+        <ul class="stack-grid">
+          <li class="stack-panel">
+            <p class="stack-head">
+              <svg class="stack-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M8 7l-5 5 5 5" /><path d="M16 7l5 5-5 5" /></svg>
+              <span class="mono">programming_languages</span>
+            </p>
             <ul class="tag-list mono">
-              <li>Python</li><li>Java</li><li>C</li><li>JavaScript</li>
+              <li>Python</li><li>Java</li><li>JavaScript</li><li>C</li>
             </ul>
-          </div>
-          <div class="stack-panel" role="listitem">
-            <p class="panel-label mono">Frontend</p>
+          </li>
+
+          <li class="stack-panel">
+            <p class="stack-head">
+              <svg class="stack-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="2.5" y="4" width="19" height="14" rx="2" /><path d="M2.5 8.5h19M6 21h12" /></svg>
+              <span class="mono">frontend_development</span>
+            </p>
             <ul class="tag-list mono">
-              <li>HTML</li><li>CSS</li><li>Angular</li><li>Tailwind CSS</li>
+              <li>HTML5</li><li>CSS3</li><li>React.js</li><li>Angular</li><li>Tailwind CSS</li><li>Bootstrap</li><li>Vite</li>
             </ul>
-          </div>
-          <div class="stack-panel" role="listitem">
-            <p class="panel-label mono">Backend</p>
+          </li>
+
+          <li class="stack-panel">
+            <p class="stack-head">
+              <svg class="stack-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="3.5" width="18" height="7" rx="2" /><rect x="3" y="13.5" width="18" height="7" rx="2" /><path d="M7 7h.01M7 17h.01" /></svg>
+              <span class="mono">backend_development</span>
+            </p>
             <ul class="tag-list mono">
-              <li>Node.js</li><li>Express.js</li><li>Flask</li>
+              <li>Java Spring Boot</li><li>Node.js</li><li>Express.js</li><li>Python Flask</li><li>REST API Development</li><li>Spring Security</li><li>JWT Authentication</li>
             </ul>
-          </div>
-          <div class="stack-panel" role="listitem">
-            <p class="panel-label mono">Data_&amp;_ML</p>
+          </li>
+
+          <li class="stack-panel">
+            <p class="stack-head">
+              <svg class="stack-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><ellipse cx="12" cy="5.5" rx="8" ry="3" /><path d="M4 5.5v6c0 1.66 3.58 3 8 3s8-1.34 8-3v-6" /><path d="M4 11.5v7c0 1.66 3.58 3 8 3s8-1.34 8-3v-7" /></svg>
+              <span class="mono">databases</span>
+            </p>
             <ul class="tag-list mono">
-              <li>Pandas</li><li>NumPy</li><li>Scikit-learn</li><li>XGBoost</li><li>LightGBM</li>
+              <li>PostgreSQL</li><li>MySQL</li><li>MongoDB</li>
             </ul>
-          </div>
-          <div class="stack-panel" role="listitem">
-            <p class="panel-label mono">ai_&amp;_ocr</p>
+          </li>
+
+          <li class="stack-panel">
+            <p class="stack-head">
+              <svg class="stack-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3.5 20.5h17" /><rect x="5" y="12" width="3.5" height="6" rx="1" /><rect x="10.5" y="8" width="3.5" height="10" rx="1" /><rect x="16" y="4" width="3.5" height="14" rx="1" /></svg>
+              <span class="mono">data_science_&amp;_ml</span>
+            </p>
             <ul class="tag-list mono">
-              <li>Data Science</li><li>Machine Learning</li><li>Generative AI</li><li>Mistral AI</li><li>Tesseract OCR</li>
+              <li>Pandas</li><li>NumPy</li><li>Scikit-learn</li><li>XGBoost</li><li>LightGBM</li><li>Data Analysis</li><li>Machine Learning</li>
             </ul>
-          </div>
-          <div class="stack-panel" role="listitem">
-            <p class="panel-label mono">databases</p>
+          </li>
+
+          <li class="stack-panel">
+            <p class="stack-head">
+              <svg class="stack-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M14.5 4.5l5 5-9.5 9.5H5v-5z" /><path d="M12.5 6.5l5 5" /></svg>
+              <span class="mono">tools_&amp;_platforms</span>
+            </p>
             <ul class="tag-list mono">
-              <li>MySQL</li><li>MongoDB</li>
+              <li>Git</li><li>GitHub</li><li>VS Code</li><li>Postman</li><li>Swagger / OpenAPI</li><li>Jupyter Notebook</li><li>XAMPP</li>
             </ul>
-          </div>
-          <div class="stack-panel" role="listitem">
-            <p class="panel-label mono">tools</p>
+          </li>
+
+          <li class="stack-panel stack-panel-wide">
+            <p class="stack-head">
+              <svg class="stack-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="3" /><circle cx="12" cy="12" r="8.5" /><path d="M12 3.5v3M12 17.5v3M3.5 12h3M17.5 12h3" /></svg>
+              <span class="mono">other_technical_areas</span>
+            </p>
             <ul class="tag-list mono">
-              <li>Git</li><li>GitHub</li><li>VS Code</li><li>Postman</li>
+              <li>Full Stack Development</li><li>API Integration</li><li>Database Design</li><li>Authentication &amp; Authorization</li><li>Software Testing</li><li>Debugging</li><li>AI &amp; Generative AI</li>
             </ul>
-          </div>
-        </div>
+          </li>
+        </ul>
       </div>
     </section>
 
@@ -260,8 +336,180 @@
           <p class="section-index mono">/03 <span class="accent">/</span></p>
           <h2 class="section-title" id="projects-title">Selected Projects</h2>
           <span class="section-rule" aria-hidden="true"></span>
-
+          <p class="section-intro">
+            Three major capstone platforms built at Perficient, followed by earlier internship, research and
+            hackathon work. Every technology and feature listed below is taken from the actual implementation.
+          </p>
         </header>
+
+        <p class="group-label mono">capstone_platforms <span class="accent">/</span> 03 major projects</p>
+
+        <!-- ============ CAPSTONE 4 · PAWPANTRY ============ -->
+        <article class="case case-feature case-capstone" id="project-pawpantry">
+          <header class="case-head">
+            <p class="case-id mono">capstone_04 <span class="accent">/</span> perficient</p>
+            <div class="case-badges mono" aria-label="Categories">
+              <span>full-stack development</span><span>e-commerce</span><span>spring boot</span><span>react</span>
+            </div>
+            <h3 class="case-title">PawPantry — Full Stack Pet Supplies E-commerce Platform</h3>
+            <p class="case-subtitle">
+              A full-stack e-commerce application that lets customers explore and purchase pet supplies and manage
+              the shopping and service experience around it — catalogue and search, reviews, cart and wishlist,
+              checkout, order tracking and repeat-delivery subscriptions — with a React storefront on a Spring Boot
+              REST API where the server is the single source of truth for prices, stock, roles and orders.
+            </p>
+          </header>
+
+          <div class="case-arch" aria-label="PawPantry architecture">
+            <p class="panel-label mono">architecture full_stack_integration</p>
+            <ol class="pipeline pipeline-wide" aria-hidden="true">
+              <li class="pipe-step">React 19 SPA <span class="pipe-sub">vite · redux toolkit</span></li>
+              <li class="pipe-arrow">→</li>
+              <li class="pipe-step">RTK Query <span class="pipe-sub">/api/*</span></li>
+              <li class="pipe-arrow">→</li>
+              <li class="pipe-step pipe-hot">Spring Boot REST API <span class="pipe-sub">java 21 · spring security</span></li>
+              <li class="pipe-arrow">→</li>
+              <li class="pipe-step">Service Layer <span class="pipe-sub">pricing · stock · orders</span></li>
+              <li class="pipe-arrow">→</li>
+              <li class="pipe-step">Spring Data JPA</li>
+              <li class="pipe-arrow">→</li>
+              <li class="pipe-step">PostgreSQL <span class="pipe-sub">flyway v1–v17</span></li>
+            </ol>
+          </div>
+
+          <dl class="case-block">
+            <div class="case-field">
+              <dt class="mono">technology</dt>
+              <dd>React 19 · Vite 8 · React Router 6 · Redux Toolkit with RTK Query · Java 21 · Spring Boot 3.5 · Spring MVC · Spring Data JPA · Spring Security with JWT · PostgreSQL with Flyway · OpenAPI 3 · Postman · JUnit 5 · Vitest · Playwright · Git &amp; GitHub</dd>
+            </div>
+            <div class="case-field">
+              <dt class="mono">key features</dt>
+              <dd>Registration and JWT authentication · product catalogue and admin product management · server-side search, filtering and sorting · reviews and ratings · cart and wishlist with guest-cart merge · three-step checkout and order management · order tracking with PDF invoice · Subscribe &amp; Save repeat deliveries · AI-assisted natural-language catalogue search</dd>
+            </div>
+          </dl>
+
+          <div class="case-actions">
+            <button class="btn btn-ghost btn-sm" type="button" data-dialog="dlg-pawpantry">
+              View Details <span aria-hidden="true">→</span>
+            </button>
+            <p class="case-note mono">role: full-stack — frontend, backend, database</p>
+          </div>
+        </article>
+
+        <!-- ============ CAPSTONE 6 · WEALTH MANAGEMENT NAO ============ -->
+        <article class="case case-feature case-capstone" id="project-nao">
+          <header class="case-head">
+            <p class="case-id mono">capstone_06 <span class="accent">/</span> perficient</p>
+            <div class="case-badges mono" aria-label="Categories">
+              <span>enterprise application</span><span>fintech</span><span>bfsi</span><span>spring boot</span>
+            </div>
+            <h3 class="case-title">Wealth Management — New Account Opening Platform</h3>
+            <p class="case-subtitle">
+              A digital account onboarding solution that streamlines opening wealth management and investment
+              accounts. A client registers, completes a multi-section application covering personal, financial,
+              investment and regulatory information, uploads KYC documents and submits; Operations and Compliance
+              then review the application and approve, return or reject it — every state change recorded in an
+              append-only history.
+            </p>
+          </header>
+
+          <div class="case-arch" aria-label="New Account Opening workflow">
+            <p class="panel-label mono">workflow onboarding_lifecycle</p>
+            <ol class="pipeline pipeline-wide" aria-hidden="true">
+              <li class="pipe-step">Registration <span class="pipe-sub">jwt · rbac</span></li>
+              <li class="pipe-arrow">→</li>
+              <li class="pipe-step">Application Sections <span class="pipe-sub">personal · financial · investment</span></li>
+              <li class="pipe-arrow">→</li>
+              <li class="pipe-step">KYC Documents <span class="pipe-sub">upload · ocr extraction</span></li>
+              <li class="pipe-arrow">→</li>
+              <li class="pipe-step">Risk Profiling <span class="pipe-sub">questionnaire · score</span></li>
+              <li class="pipe-arrow">→</li>
+              <li class="pipe-step">Submission <span class="pipe-sub">locked after submit</span></li>
+              <li class="pipe-arrow">→</li>
+              <li class="pipe-step pipe-hot">Operations &amp; Compliance Review</li>
+              <li class="pipe-arrow">→</li>
+              <li class="pipe-step">Approved / Returned / Rejected</li>
+            </ol>
+          </div>
+
+          <dl class="case-block">
+            <div class="case-field">
+              <dt class="mono">technology</dt>
+              <dd>Java 25 · Spring Boot 4.1 · Spring MVC · Spring Data JPA / Hibernate · Spring Security (OAuth2 resource server, JWT + rotating refresh tokens, BCrypt) · PostgreSQL with Flyway · Tesseract OCR via Tess4J · Swagger / OpenAPI · JUnit 5 · Mockito · Postman · React 18 &amp; Vite frontend · Maven</dd>
+            </div>
+            <div class="case-field">
+              <dt class="mono">key features</dt>
+              <dd>Customer registration and onboarding · section-by-section information capture · identification, employment, financial and banking details · KYC document management with OCR cross-checking · risk profiling questionnaire · FATCA / CRS tax declaration, PEP screening, consents and e-signature · beneficiaries and trusted contact · application submission and status tracking · operations and compliance review workflow · append-only audit log and reports · role-based access for four staff and customer roles</dd>
+            </div>
+          </dl>
+
+          <div class="case-actions">
+            <button class="btn btn-ghost btn-sm" type="button" data-dialog="dlg-nao">
+              View Details <span aria-hidden="true">→</span>
+            </button>
+            <p class="case-note mono">role: backend engineering · api · database · frontend forms</p>
+          </div>
+        </article>
+
+        <!-- ============ CAPSTONE 7 · ADVISOR360 ============ -->
+        <article class="case case-feature case-capstone" id="project-advisor360">
+          <header class="case-head">
+            <p class="case-id mono">capstone_07 <span class="accent">/</span> perficient</p>
+            <div class="case-badges mono" aria-label="Categories">
+              <span>financial technology</span><span>dashboard development</span><span>data visualization</span><span>fastapi</span>
+            </div>
+            <h3 class="case-title">Advisor360 — Wealth Management Portfolio &amp; Household Dashboard</h3>
+            <p class="case-subtitle">
+              An advisor-facing dashboard that consolidates client relationships, household information, investment
+              portfolios and financial risk indicators into one view. Approved onboarding applications flow into an
+              advisor's book; the service then evaluates each portfolio against configurable risk rules, raises
+              alerts, and derives recommendations an advisor can accept or dismiss.
+            </p>
+          </header>
+
+          <div class="case-arch" aria-label="Advisor360 architecture">
+            <p class="panel-label mono">architecture advisor_dashboard_flow</p>
+            <ol class="pipeline pipeline-wide" aria-hidden="true">
+              <li class="pipe-step">Approved Application <span class="pipe-sub">read-only views</span></li>
+              <li class="pipe-arrow">→</li>
+              <li class="pipe-step">Onboarding Sync <span class="pipe-sub">advisor assignment</span></li>
+              <li class="pipe-arrow">→</li>
+              <li class="pipe-step">Portfolio &amp; Household Data <span class="pipe-sub">aum · allocation</span></li>
+              <li class="pipe-arrow">→</li>
+              <li class="pipe-step pipe-hot">Risk Rule Evaluation <span class="pipe-sub">equity · cash · concentration</span></li>
+              <li class="pipe-arrow">→</li>
+              <li class="pipe-step">Alerts <span class="pipe-sub">open → acknowledged → resolved</span></li>
+              <li class="pipe-arrow">→</li>
+              <li class="pipe-step">Recommendations</li>
+              <li class="pipe-arrow">→</li>
+              <li class="pipe-step">Advisor Dashboard <span class="pipe-sub">react · chart.js</span></li>
+            </ol>
+          </div>
+
+          <dl class="case-block">
+            <div class="case-field">
+              <dt class="mono">technology</dt>
+              <dd>Python 3.14 · FastAPI · SQLAlchemy 2 · Alembic · psycopg 3 · PyJWT · Pydantic Settings · Uvicorn · PostgreSQL (dedicated schema plus read-only views into the onboarding database) · React 18 · Vite · Chart.js 4 · pytest · Postman</dd>
+            </div>
+            <div class="case-field">
+              <dt class="mono">key features</dt>
+              <dd>Advisor homepage with summary tiles and charts · client 360-degree overview · paged, filterable client list · household management with combined AUM · portfolio overview per client and across the whole book · asset allocation and sector analysis · Assets Under Management reporting · investment risk monitoring with a configurable rule engine · portfolio insights and financial recommendations · firm-level reports and an append-only audit trail · role scoping so an advisor sees only their own clients</dd>
+            </div>
+            <div class="case-field case-field-wide">
+              <dt class="mono">risk indicators</dt>
+              <dd>Three portfolio risk-monitoring rules, each with a threshold held in the database: equity allocation above 80%, cash allocation above 25%, and single-stock concentration above 30%. Comparisons are exact decimal arithmetic, so 80.00% is not a breach and 80.01% is. These are monitoring indicators for an advisor to act on — not investment advice, and nothing is traded.</dd>
+            </div>
+          </dl>
+
+          <div class="case-actions">
+            <button class="btn btn-ghost btn-sm" type="button" data-dialog="dlg-advisor360">
+              View Details <span aria-hidden="true">→</span>
+            </button>
+            <p class="case-note mono">role: api engineering · risk logic · dashboard integration</p>
+          </div>
+        </article>
+
+        <p class="group-label mono group-label-gap">earlier_work <span class="accent">/</span> internship · research · hackathon</p>
 
         <!-- ============ PROJECT 01 · NOSHGUARD ============ -->
         <article class="case case-feature" id="project-noshguard">
@@ -447,23 +695,304 @@
       </div>
     </section>
 
+    <!-- ============ PROJECT DETAIL DIALOGS ============
+         Kept outside .section so the scroll-reveal rules do not apply to them.
+         Without JavaScript they render as ordinary panels (see css §21). -->
+    <div class="case-dialogs">
+
+      <!-- PawPantry details -->
+      <dialog class="case-dialog" id="dlg-pawpantry" aria-labelledby="dlg-pawpantry-title">
+        <div class="dlg-inner">
+          <header class="dlg-head">
+            <div>
+              <p class="dlg-eyebrow mono">capstone_04 <span class="accent">/</span> full-stack development · e-commerce</p>
+              <h3 class="dlg-title" id="dlg-pawpantry-title">PawPantry — Full Stack Pet Supplies E-commerce Platform</h3>
+            </div>
+            <button class="dlg-close" type="button" data-dialog-close aria-label="Close project details">
+              <span aria-hidden="true">✕</span>
+            </button>
+          </header>
+
+          <div class="dlg-body">
+            <section class="dlg-sec">
+              <h4 class="dlg-h">Overview</h4>
+              <p>
+                PawPantry is a full-stack e-commerce application built as a Perficient capstone. It joins two
+                independently developed halves — a React storefront and a Spring Boot REST API — into one working
+                store. Shoppers browse and search the catalogue, fill a cart, check out, track orders and subscribe
+                to repeat deliveries; store managers run the catalogue and orders from an admin area. The server
+                owns every decision that matters: prices, stock, roles and order state.
+              </p>
+            </section>
+
+            <section class="dlg-sec">
+              <h4 class="dlg-h">Full-stack integration</h4>
+              <p>
+                The browser only ever talks to the Vite dev server, which forwards <code>/api/*</code> to Spring Boot.
+                That gives one origin, no CORS, and a strict same-site refresh cookie. The frontend consumes the API
+                through RTK Query; the backend exposes it under an OpenAPI 3 contract with a matching Postman
+                collection, so both halves are developed against the same documented interface. Shared test vectors
+                keep cart pricing identical on both sides of the wire.
+              </p>
+              <ul class="dlg-list">
+                <li>Stateless JWT sign-in: a 15-minute access token plus a hashed, rotating 7-day refresh cookie, BCrypt password hashing, account lockout and rate limits.</li>
+                <li>Server-side pricing only — per-category GST shown line by line and free shipping above a threshold — so the client can never set a price.</li>
+                <li>Idempotent order creation, ETags and optimistic locking on admin edits, a payment reconciliation job, an outbox and server-sent events for live order updates in every open tab.</li>
+                <li>PostgreSQL schema owned by Flyway migrations (V1–V17); the API is validated against the schema rather than generating it.</li>
+              </ul>
+            </section>
+
+            <section class="dlg-sec">
+              <h4 class="dlg-h">Technology stack</h4>
+              <dl class="dlg-stack">
+                <div><dt class="mono">frontend</dt><dd>React 19 · Vite 8 · React Router 6 · Redux Toolkit 2 with RTK Query · JavaScript</dd></div>
+                <div><dt class="mono">backend</dt><dd>Java 21 · Spring Boot 3.5 · Spring MVC · Spring Data JPA · Spring Security · REST APIs · JWT authentication</dd></div>
+                <div><dt class="mono">database</dt><dd>PostgreSQL with Flyway migrations</dd></div>
+                <div><dt class="mono">testing</dt><dd>JUnit 5 · MockMvc · ArchUnit · JaCoCo · Vitest · Testing Library · Playwright with axe accessibility checks</dd></div>
+                <div><dt class="mono">tools</dt><dd>Postman · Swagger / OpenAPI 3 · Git &amp; GitHub · Maven wrapper · ESLint · Prettier</dd></div>
+              </dl>
+            </section>
+
+            <section class="dlg-sec">
+              <h4 class="dlg-h">Key features</h4>
+              <ul class="dlg-list dlg-list-two">
+                <li>User registration, sign-in and account management</li>
+                <li>Product catalogue with admin product management</li>
+                <li>Server-side search, category / brand / price / rating filters, sorting and paging</li>
+                <li>Product reviews and ratings with a verified-purchase badge</li>
+                <li>Shopping cart and wishlist, including guest carts merged on sign-in</li>
+                <li>Three-step checkout with an idempotency key</li>
+                <li>Order management and tracking with a status timeline, cancel window and PDF invoice</li>
+                <li>Subscribe &amp; Save: pause, resume, skip, change or cancel a repeat delivery</li>
+                <li>Admin orders, sales report, audit log and CSV import</li>
+                <li>Natural-language catalogue search whose filters are validated server-side</li>
+              </ul>
+            </section>
+
+            <section class="dlg-sec">
+              <h4 class="dlg-h">Honest status</h4>
+              <p class="dlg-note">
+                Payment processing is implemented as Cash on Delivery plus a mock card gateway, with every outcome
+                handled explicitly (approved, declined, timeout, gateway failure, answer lost). <strong>No live
+                third-party payment provider is integrated.</strong> All modules are built and tested, but milestones
+                are marked "built" rather than signed off: several manual browser checklists are outstanding, the
+                database-dependent tests have so far run against mocks, and browser testing has been Chromium-only.
+              </p>
+            </section>
+          </div>
+        </div>
+      </dialog>
+
+      <!-- New Account Opening details -->
+      <dialog class="case-dialog" id="dlg-nao" aria-labelledby="dlg-nao-title">
+        <div class="dlg-inner">
+          <header class="dlg-head">
+            <div>
+              <p class="dlg-eyebrow mono">capstone_06 <span class="accent">/</span> enterprise application · fintech</p>
+              <h3 class="dlg-title" id="dlg-nao-title">Wealth Management — New Account Opening Platform</h3>
+            </div>
+            <button class="dlg-close" type="button" data-dialog-close aria-label="Close project details">
+              <span aria-hidden="true">✕</span>
+            </button>
+          </header>
+
+          <div class="dlg-body">
+            <section class="dlg-sec">
+              <h4 class="dlg-h">Overview</h4>
+              <p>
+                An enterprise-oriented financial services application for digital account onboarding in wealth
+                management. A client registers, completes an application made up of fifteen information sections,
+                uploads identity and KYC documents, answers a risk-profiling questionnaire, signs the regulatory
+                declarations and submits. Operations and Compliance staff then review the submission, verify the
+                documents, record remarks and approve, return or reject it. Administrators manage staff accounts
+                and read the audit trail and aggregate reports.
+              </p>
+            </section>
+
+            <section class="dlg-sec">
+              <h4 class="dlg-h">Architecture</h4>
+              <p>
+                A modular monolith: one Spring Boot application and one PostgreSQL database, with packages organised
+                by business feature and the same controller → service → repository → entity layering inside each.
+                The API is REST/JSON under <code>/api/v1</code>, stateless, documented with OpenAPI, and every error
+                passes through one global handler into a standard response envelope. The database schema is owned by
+                Flyway (V1 through V22) and the application validates against it rather than generating it. Uploaded
+                documents go to a local file system behind a storage interface, and sensitive fields such as bank
+                account numbers are encrypted at the field level.
+              </p>
+            </section>
+
+            <section class="dlg-sec">
+              <h4 class="dlg-h">Business functionality implemented</h4>
+              <ul class="dlg-list dlg-list-two">
+                <li>Customer registration, login and profile</li>
+                <li>Personal information and residential address capture</li>
+                <li>Identification details and employment information</li>
+                <li>Financial information and banking details</li>
+                <li>Investment profile and risk-profiling questionnaire</li>
+                <li>FATCA / CRS tax declaration and PEP screening</li>
+                <li>Regulatory consents and e-signature</li>
+                <li>Beneficiary management and trusted contact</li>
+                <li>Document upload by category, with OCR extraction used to cross-check the details on the document</li>
+                <li>KYC verification by Operations</li>
+                <li>Application submission, with edits locked afterwards</li>
+                <li>Application status tracking and immutable status history</li>
+                <li>Operations and compliance review with reviewer remarks and approve / return / reject decisions</li>
+                <li>Append-only audit log, aggregate reports and admin staff-account management</li>
+              </ul>
+            </section>
+
+            <section class="dlg-sec">
+              <h4 class="dlg-h">Technology stack</h4>
+              <dl class="dlg-stack">
+                <div><dt class="mono">backend</dt><dd>Java 25 · Spring Boot 4.1 · Spring MVC · Spring Data JPA / Hibernate · Maven</dd></div>
+                <div><dt class="mono">security</dt><dd>Spring Security as an OAuth2 resource server · JWT access tokens with rotating refresh tokens · BCrypt · role-based access for CUSTOMER, OPERATIONS, COMPLIANCE and ADMIN, plus ownership checks</dd></div>
+                <div><dt class="mono">database</dt><dd>PostgreSQL with Flyway migrations (V1–V22)</dd></div>
+                <div><dt class="mono">documents</dt><dd>Local file-system storage behind a storage interface · Tesseract OCR via Tess4J for document extraction</dd></div>
+                <div><dt class="mono">frontend</dt><dd>React 18 · Vite — customer application wizard and staff review screens</dd></div>
+                <div><dt class="mono">testing</dt><dd>JUnit 5 · Mockito · Maven Failsafe integration tests · Postman collections, one per milestone</dd></div>
+              </dl>
+            </section>
+
+            <section class="dlg-sec">
+              <h4 class="dlg-h">Verification</h4>
+              <p class="dlg-note">
+                At the last full run: 198 unit tests and 276 integration tests on the backend, plus twelve Postman
+                collections covering the milestones end to end. Tokens are signed with a shared HS256 secret, which
+                is appropriate for a proof of concept rather than production. <strong>No regulatory compliance is
+                claimed</strong> and no external KYC/AML vendor is integrated — the KYC and screening steps are
+                internal workflow, not third-party verification.
+              </p>
+            </section>
+          </div>
+        </div>
+      </dialog>
+
+      <!-- Advisor360 details -->
+      <dialog class="case-dialog" id="dlg-advisor360" aria-labelledby="dlg-advisor360-title">
+        <div class="dlg-inner">
+          <header class="dlg-head">
+            <div>
+              <p class="dlg-eyebrow mono">capstone_07 <span class="accent">/</span> fintech · dashboard · data visualization</p>
+              <h3 class="dlg-title" id="dlg-advisor360-title">Advisor360 — Wealth Management Portfolio &amp; Household Dashboard</h3>
+            </div>
+            <button class="dlg-close" type="button" data-dialog-close aria-label="Close project details">
+              <span aria-hidden="true">✕</span>
+            </button>
+          </header>
+
+          <div class="dlg-body">
+            <section class="dlg-sec">
+              <h4 class="dlg-h">Overview</h4>
+              <p>
+                Advisor360 is the second half of the same wealth-management product: once a customer's account
+                application is approved, an advisor serves them. It gives the advisor a consolidated view of their
+                book — clients, households, portfolios, assets under management and risk indicators — on one
+                dashboard, and continues from monitoring into concrete, explained suggestions.
+              </p>
+            </section>
+
+            <section class="dlg-sec">
+              <h4 class="dlg-h">Architecture</h4>
+              <p>
+                A separate Python service alongside the onboarding backend. It owns its own PostgreSQL schema,
+                migrated with Alembic, and reads the onboarding side through exactly two read-only database views —
+                so client onboarding data is never duplicated or written from here. Both services accept the same
+                access token, so one sign-in covers the whole product, and the React website routes advisor paths to
+                this service and everything else to the onboarding API. Twenty-six endpoints, a shared response
+                envelope, request ids on every response, and paging on every list.
+              </p>
+            </section>
+
+            <section class="dlg-sec">
+              <h4 class="dlg-h">Business functionality implemented</h4>
+              <ul class="dlg-list dlg-list-two">
+                <li>Advisor homepage with summary tiles, charts and clients needing attention</li>
+                <li>Client 360-degree overview: profile, risk profile, AUM, accounts, alerts and recommendations</li>
+                <li>Paged client list with search and filters by risk profile, household and alert state</li>
+                <li>Household management with members and combined AUM</li>
+                <li>Portfolio overview per client and across the whole book</li>
+                <li>Asset allocation, sector and account-type analysis with top holdings</li>
+                <li>Assets Under Management reporting</li>
+                <li>Investment risk monitoring with a database-driven rule engine</li>
+                <li>Alert lifecycle: open → acknowledged → resolved, with a real breach reappearing at the next check</li>
+                <li>Portfolio insights and financial recommendations an advisor can accept or dismiss</li>
+                <li>Onboarding hand-off: approved applications pulled into advisors' books, with an assignment suggestion and the data behind it</li>
+                <li>Firm-level reports, append-only audit trail, and client reassignment for administrators</li>
+              </ul>
+            </section>
+
+            <section class="dlg-sec">
+              <h4 class="dlg-h">Portfolio risk indicators</h4>
+              <ul class="dlg-list">
+                <li><strong>High equity</strong> — equity allocation above 80% of the portfolio.</li>
+                <li><strong>Idle cash</strong> — cash allocation above 25% of the portfolio.</li>
+                <li><strong>Concentration</strong> — a single stock above 30% of the portfolio.</li>
+              </ul>
+              <p>
+                Each threshold is stored in the database so it can change without a code change, and comparisons use
+                exact decimal arithmetic rather than floating point: 80.00% is not a breach, 80.01% is. A breach
+                raises an alert, and each alert type maps to one recommendation type — reduce equity, deploy cash or
+                diversify — carrying the measured percentage, the limit, the target and a written rationale.
+              </p>
+              <p class="dlg-note">
+                These are <strong>risk-monitoring indicators for a qualified advisor to act on, not investment
+                advice</strong>. Accepting a recommendation records the advisor's decision; <strong>nothing is
+                traded</strong>. The targets and margins behind the suggested amounts are placeholders awaiting
+                business sign-off, and no AI model is called — the optional narration is a local template.
+              </p>
+            </section>
+
+            <section class="dlg-sec">
+              <h4 class="dlg-h">Technology stack</h4>
+              <dl class="dlg-stack">
+                <div><dt class="mono">api</dt><dd>Python 3.14 · FastAPI · Uvicorn · Pydantic Settings · PyJWT</dd></div>
+                <div><dt class="mono">data</dt><dd>SQLAlchemy 2 · Alembic migrations · psycopg 3 · PostgreSQL (own schema plus read-only views into the onboarding schema)</dd></div>
+                <div><dt class="mono">frontend</dt><dd>React 18 · Vite · Chart.js 4 — dashboard tiles, allocation rings and portfolio charts</dd></div>
+                <div><dt class="mono">testing</dt><dd>pytest (628 tests at the last full run) · seven Postman collections · security-matrix tests covering every endpoint and role</dd></div>
+              </dl>
+            </section>
+          </div>
+        </div>
+      </dialog>
+
+    </div>
+
     <!-- ============ 05 · EXPERIENCE ============ -->
     <section class="section" id="experience" aria-labelledby="experience-title">
       <div class="container">
         <header class="section-head">
           <p class="section-index mono">/04 <span class="accent">/</span></p>
-          <h2 class="section-title" id="experience-title">Experience</h2>
+          <h2 class="section-title" id="experience-title">Professional Experience</h2>
           <span class="section-rule" aria-hidden="true"></span>
         </header>
 
         <ol class="timeline" aria-label="Career timeline">
-          <li class="tl-item">
+          <li class="tl-item tl-item-current">
             <span class="tl-marker" aria-hidden="true"></span>
             <div class="tl-card">
-              <p class="tl-period mono">2026 - present</p>
+              <p class="tl-period mono">2026 — present <span class="tl-now">current</span></p>
               <h3 class="tl-role">Associate Technical Consultant</h3>
-              <p class="tl-org">Perficient</p>
-              <p class="tl-desc">Current role Trainiee. <span class="placeholder"></span></p>
+              <p class="tl-org">Perficient Inc.</p>
+              <p class="tl-meta mono">Product Development (Custom Delivery) · Bengaluru, India</p>
+              <p class="tl-desc">
+                Currently working as an Associate Technical Consultant at Perficient, contributing to technical
+                learning and software development initiatives within the Product Development (Custom Delivery)
+                business area. Work to date has centred on building three substantial capstone applications —
+                a full-stack e-commerce platform, an enterprise account-onboarding system and an advisor portfolio
+                dashboard — covering frontend, backend, API and database layers end to end.
+              </p>
+              <p class="tl-tags-label mono">technical areas</p>
+              <ul class="tl-tags mono">
+                <li>Software Development</li>
+                <li>Full Stack Application Development</li>
+                <li>Frontend &amp; Backend Technologies</li>
+                <li>API Development &amp; Integration</li>
+                <li>Database Management</li>
+                <li>Debugging &amp; Testing</li>
+                <li>Collaborative Development Workflows</li>
+                <li>Git &amp; GitHub</li>
+              </ul>
             </div>
           </li>
           <li class="tl-item">
@@ -550,10 +1079,10 @@
         <div class="edu-panel">
           <div class="edu-inner">
             <p class="edu-period mono">2022 — 2026</p>
-            <h3 class="edu-degree">B.Tech — Computer Science &amp; Engineering</h3>
+            <h3 class="edu-degree">Bachelor of Technology — Computer Science &amp; Engineering</h3>
             <p class="edu-school">Amrita Vishwa Vidyapeetham, Bengaluru</p>
           </div>
-          <p class="edu-note mono">specialization: CSE</p>
+          <p class="edu-note mono">specialization: computer science &amp; engineering</p>
         </div>
 
         <div class="edu-panel">
@@ -583,7 +1112,6 @@
             <p class="cert-org mono">Udemy</p>
           </li>
         </ul>
-        <p class="dim-note mono"></p>
       </div>
     </section>
 
@@ -609,51 +1137,31 @@
       </div>
     </section>
 
-    <!-- ============ 10 · GITHUB ============
-    <section class="section" id="github" aria-labelledby="github-title">
-      <div class="container">
-        <header class="section-head">
-          <p class="section-index mono">./09 <span class="accent">/</span> github</p>
-          <h2 class="section-title" id="github-title">GitHub</h2>
-          <span class="section-rule" aria-hidden="true"></span>
-        </header>
-
-        <div class="gh-grid">
-          <div class="gh-profile">
-            <p class="panel-label mono">// profile</p>
-            <p class="gh-handle mono">github.com/[GITHUB URL]</p>
-            <p class="gh-desc">Repositories across full-stack platforms, OCR + LLM applications, speech research, generative AI, and ML-driven systems tooling.</p>
-            <a class="btn btn-ghost btn-sm" href="https://github.com/[GITHUB URL]">Visit Profile <span aria-hidden="true">↗</span></a>
-            <p class="mono gh-note">contribution activity: shown on the GitHub<wbr /> profile<span class="dash-note"> — no third-party numbers are fabricated here.</span></p>
-          </div>
-
-          <ul class="repo-list" aria-label="Selected repositories">
-            <li><a class="repo-item" href="https://github.com/[GITHUB URL]/noshguard"><span class="repo-name mono">noshguard</span><span class="repo-desc">OCR + LLM product advisor</span><span class="repo-arrow mono" aria-hidden="true">↗</span></a></li>
-            <li><a class="repo-item" href="https://github.com/[GITHUB URL]/speech-therapy-dysarthria"><span class="repo-name mono">speech-therapy-dysarthria</span><span class="repo-desc">adaptive emotion-aware therapy research</span><span class="repo-arrow mono" aria-hidden="true">↗</span></a></li>
-            <li><a class="repo-item" href="https://github.com/[GITHUB URL]/hospital-platform"><span class="repo-name mono">hospital-platform</span><span class="repo-desc">angular + node + mongodb booking platform</span><span class="repo-arrow mono" aria-hidden="true">↗</span></a></li>
-            <li><a class="repo-item" href="https://github.com/[GITHUB URL]/text-to-image"><span class="repo-name mono">text-to-image</span><span class="repo-desc">hackathon generative ai prototype</span><span class="repo-arrow mono" aria-hidden="true">↗</span></a></li>
-            <li><a class="repo-item" href="https://github.com/[GITHUB URL]/predictive-autoscaler"><span class="repo-name mono">predictive-autoscaler</span><span class="repo-desc">log-based resource demand forecasting</span><span class="repo-arrow mono" aria-hidden="true">↗</span></a></li>
-          </ul>
-        </div>
-      </div>
-    </section> -->
+    <!-- The GitHub section was removed: it contained placeholder repository
+         slugs that resolved to non-existent URLs. The GitHub profile is linked
+         from the Contact section instead. -->
 
     <!-- ============ 11 · RESUME ============ -->
     <section class="section" id="resume" aria-labelledby="resume-title">
       <div class="container">
         <header class="section-head">
           <p class="section-index mono">/09 <span class="accent">/</span></p>
-          <h2 class="section-title" id="hackathons-title">Resume</h2>
+          <h2 class="section-title" id="resume-section-title">Resume</h2>
           <span class="section-rule" aria-hidden="true"></span>
         </header>
 
         <div class="resume-banner">
           <div>
             <h2 class="resume-title" id="resume-title">Resume &amp; Portfolio</h2>
+            <p class="resume-desc">
+              A one-page resume, plus the full portfolio as a printable document. The portfolio PDF is generated
+              from this page, so it always carries the same content you are reading here.
+            </p>
+            <p class="resume-meta mono">portfolio.pdf · last generated <span data-pdf-updated>2026-11-11</span></p>
           </div>
           <div class="resume-actions">
-            <a class="btn btn-primary" href="assets/documents/resume.pdf?v=20260921">Download Resume <span aria-hidden="true">↓</span></a>
-            <a class="btn btn-ghost" href="assets/documents/portfolio.pdf?v=20260921">Portfolio PDF <span aria-hidden="true">↓</span></a>
+            <a class="btn btn-primary" href="assets/documents/resume.pdf?v=20261111" download>Download Resume <span aria-hidden="true">↓</span></a>
+            <a class="btn btn-ghost" href="assets/documents/portfolio.pdf?v=20261111" download>Portfolio PDF <span aria-hidden="true">↓</span></a>
           </div>
         </div>
       </div>
@@ -664,19 +1172,26 @@
       <div class="container">
         <header class="section-head">
           <p class="section-index mono">/10 <span class="accent">/</span></p>
-          <h2 class="section-title" id="hackathons-title">Contact</h2>
+          <h2 class="section-title" id="contact-section-title">Contact</h2>
           <span class="section-rule" aria-hidden="true"></span>
         </header>
 
         <h2 class="contact-title" id="contact-title">Let's build something useful.</h2>
         <p class="contact-sub">
+          Open to conversations about software engineering, full stack development, enterprise applications
+          and applied AI. The quickest way to reach me is email.
         </p>
 
         <ul class="contact-links mono">
           <li><span class="contact-ico" aria-hidden="true">✉</span> <a href="mailto:Nishit.kumar@perficient.com">Nishit.kumar@perficient.com</a></li>
-          <li><span class="contact-ico mono" aria-hidden="true">bd</span> <a href="https://linkedin.com/in/nishit-kumar-77a3aa354">Nishit Kumar</a></li>
+          <li><span class="contact-ico mono" aria-hidden="true">in</span> <a href="https://linkedin.com/in/nishit-kumar-77a3aa354">linkedin.com/in/nishit-kumar</a></li>
           <li><span class="contact-ico mono" aria-hidden="true">&lt;/&gt;</span> <a href="https://github.com/Nishitkumar25">github.com/Nishitkumar25</a></li>
         </ul>
+
+        <!-- PDF only: closing line -->
+        <p class="print-only print-outro" aria-hidden="true">
+          Nishit Kumar — Engineering Portfolio · nishitkumar25.github.io
+        </p>
       </div>
     </section>
   </main>
@@ -684,11 +1199,18 @@
   <!-- ============ FOOTER ============ -->
   <footer class="site-footer">
     <div class="container footer-inner">
-      <p class="mono">© 2026 Nishit Kumar</p>
+      <p class="mono">© <span data-year>2026</span> Nishit Kumar</p>
       <p class="mono footer-built">built with html/css/js — hosted on github pages</p>
       <a class="mono footer-top" href="#top">[back to top ↑]</a>
     </div>
   </footer>
+
+  <!-- Back to top -->
+  <button class="to-top" type="button" aria-label="Back to top" hidden>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+      <path d="M12 19V5" /><path d="M5 12l7-7 7 7" />
+    </svg>
+  </button>
 
   <script src="js/script.js"></script>
 </body>

@@ -1,0 +1,38 @@
+# ---------------------------------------------------------------------------
+# Nishit Kumar — portfolio
+# This is a static site: there is no build output to ignore, only noise.
+# ---------------------------------------------------------------------------
+
+# OS / editor
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+desktop.ini
+.DS_Store
+*.swp
+*~
+.vscode/*
+!.vscode/extensions.json
+.idea/
+
+# Temporary and backup files
+*.bak
+*.tmp
+*.log
+*.orig
+~$*
+
+# Anything a tool drops in while generating the PDF
+scripts/*.local.ps1
+/tmp/
+.cache/
+
+# Node is not a dependency of this project; these only appear if you
+# experiment with tooling locally.
+node_modules/
+package-lock.json
+npm-debug.log*
+
+# Keep the published documents — they are part of the site:
+#   assets/documents/portfolio.pdf
+#   assets/documents/resume.pdf
