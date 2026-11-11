@@ -16,7 +16,7 @@
   var metaTheme = document.querySelector('meta[name="theme-color"]');
 
   function getTheme() {
-    return root.getAttribute("data-theme") === "light" ? "light" : "dark";
+    return root.getAttribute("data-theme") === "dark" ? "dark" : "light";
   }
 
   function renderTheme(theme) {
@@ -28,7 +28,7 @@
       btn.title = toLight ? "Switch to light mode" : "Switch to dark mode";
       if (icon) icon.textContent = toLight ? "\u2600" : "\u263E"; // ☀ / ☾
     });
-    if (metaTheme) metaTheme.setAttribute("content", theme === "light" ? "#f6f8f9" : "#0A0B0E");
+    if (metaTheme) metaTheme.setAttribute("content", theme === "dark" ? "#0c1017" : "#f7f9fc");
   }
 
   function setTheme(theme) {
@@ -38,10 +38,10 @@
   }
 
   if (!root.getAttribute("data-theme")) {
-    var initial = "dark";
+    var initial = "light";
     try {
       initial = localStorage.getItem("nk-theme") ||
-        (window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark");
+        (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
     } catch (e) { /* ignore */ }
     root.setAttribute("data-theme", initial);
   }
@@ -137,5 +137,110 @@
   if (yearEls.length) {
     var year = new Date().getFullYear();
     yearEls.forEach(function (el) { el.textContent = year; });
+  }
+
+  /* ---------- 6. Scroll UI: progress bar, header state, back-to-top ----------
+     One passive scroll listener, throttled with requestAnimationFrame. */
+  var progressBar = document.querySelector(".scroll-progress-bar");
+  var siteHeader = document.querySelector(".site-header");
+  var toTop = document.querySelector(".to-top");
+
+  if (progressBar || siteHeader || toTop) {
+    if (toTop) {
+      toTop.hidden = false;
+      toTop.addEventListener("click", function () {
+        window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
+      });
+    }
+
+    var ticking = false;
+
+    function onScroll() {
+      var y = window.scrollY || document.documentElement.scrollTop;
+
+      if (progressBar) {
+        var max = document.documentElement.scrollHeight - window.innerHeight;
+        var pct = max > 0 ? Math.min(100, (y / max) * 100) : 0;
+        progressBar.style.width = pct + "%";
+      }
+
+      if (siteHeader) siteHeader.classList.toggle("is-scrolled", y > 8);
+      if (toTop) toTop.classList.toggle("is-visible", y > 600);
+
+      ticking = false;
+    }
+
+    window.addEventListener("scroll", function () {
+      if (!ticking) {
+        ticking = true;
+        window.requestAnimationFrame(onScroll);
+      }
+    }, { passive: true });
+
+    window.addEventListener("resize", onScroll, { passive: true });
+    onScroll();
+  }
+
+  /* ---------- 5. Project detail dialogs ----------
+     "View Details" buttons carry data-dialog="<dialog id>".
+     Uses the native <dialog> element: Escape and focus return are built in.
+     Without JavaScript the dialogs render as plain panels (css §21), so no
+     project information is ever unreachable. */
+  var detailTriggers = document.querySelectorAll("[data-dialog]");
+
+  if (detailTriggers.length) {
+    var scrollLockValue = "";
+    var openCount = 0;
+
+    function lockScroll() {
+      if (openCount === 0) {
+        scrollLockValue = document.body.style.overflow;
+        document.body.style.overflow = "hidden";
+      }
+      openCount += 1;
+    }
+
+    function unlockScroll() {
+      openCount = Math.max(0, openCount - 1);
+      if (openCount === 0) document.body.style.overflow = scrollLockValue;
+    }
+
+    function openDialog(dialog) {
+      if (typeof dialog.showModal === "function") {
+        dialog.showModal();
+      } else {
+        dialog.setAttribute("open", ""); // very old browsers: inline panel
+      }
+      lockScroll();
+      var body = dialog.querySelector(".dlg-body");
+      if (body) body.scrollTop = 0;
+    }
+
+    function closeDialog(dialog) {
+      if (typeof dialog.close === "function") {
+        dialog.close();
+      } else {
+        dialog.removeAttribute("open");
+        unlockScroll();
+      }
+    }
+
+    detailTriggers.forEach(function (btn) {
+      var dialog = document.getElementById(btn.getAttribute("data-dialog"));
+      if (!dialog) return;
+
+      btn.addEventListener("click", function () { openDialog(dialog); });
+
+      dialog.addEventListener("close", unlockScroll);
+
+      // Close on a click outside the dialog's content panel.
+      dialog.addEventListener("click", function (e) {
+        if (e.target === dialog) closeDialog(dialog);
+      });
+
+      dialog.querySelectorAll("[data-dialog-close]").forEach(function (closeBtn) {
+        closeBtn.addEventListener("click", function () { closeDialog(dialog); });
+      });
+    });
   }
 })();
